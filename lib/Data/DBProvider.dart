@@ -2,6 +2,7 @@
 
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
 class DBProvider {
