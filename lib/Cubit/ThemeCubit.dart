@@ -1,6 +1,3 @@
-
-
-
 import 'package:english_dictionary_flutter/Data/DBProvider.dart';
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +21,7 @@ class ThemeState {
 
 class ThemeCubit extends Cubit<ThemeState>{
   
-  LoadContent _themeProvider = LoadContent();
+  // LoadContent _themeProvider = LoadContent();
   List<ThemeWords> _listThemes = [];
   final DBProvider cash = DBProvider.db;
 
@@ -39,28 +36,28 @@ class ThemeCubit extends Cubit<ThemeState>{
     _listThemes = await cash.getAllThemes();
     emit(userState.copyWith(listThemes: _listThemes, loadStatus: true));
 
-    try {
-      // загружаем юзеров и показываем уже из памяти
+    // try {
+    //   // загружаем юзеров и показываем уже из памяти
 
-      await _themeProvider.getThemes();
+    //   await _themeProvider.getThemes();
 
-      _listThemes = await cash.getAllThemes();
-      emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
+    //   _listThemes = await cash.getAllThemes();
+    //   emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
 
-    } catch(_) {
-      emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
-    }
+    // } catch(_) {
+    //   emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
+    // }
   }
 
-  Future<void> reloadUser() async {
-    try {
-      await _themeProvider.getThemes();
-      _listThemes = await cash.getAllThemes();
-      emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
-    } catch(_) {
-      emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
-    }
-  }
+  // Future<void> reloadUser() async {
+  //   try {
+  //     await _themeProvider.getThemes();
+  //     _listThemes = await cash.getAllThemes();
+  //     emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
+  //   } catch(_) {
+  //     emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
+  //   }
+  // }
 
 
 

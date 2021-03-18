@@ -65,7 +65,7 @@ class UserList extends StatelessWidget {
     if (loadStatus == false) {
       //идем в верх по дереву виджетов пока не дойдем до блока
       final ThemeCubit userCubit = context.read();
-      userCubit.reloadUser();
+      // userCubit.reloadUser();
     }
   }
 
