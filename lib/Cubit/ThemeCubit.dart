@@ -4,15 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ThemeState {
 
-  final bool loadStatus;
   final List<ThemeWords> listThemes;
 
-  ThemeState({this.loadStatus, this.listThemes});
+  ThemeState({this.listThemes});
 
   ThemeState copyWith({bool loadStatus, List<ThemeWords> listThemes}){
 
-    return ThemeState(loadStatus: loadStatus ?? this.loadStatus,
-                     listThemes: listThemes ?? this.listThemes);
+    return ThemeState(listThemes: listThemes ?? this.listThemes);
 
   }
   
@@ -28,25 +26,17 @@ class ThemeCubit extends Cubit<ThemeState>{
   final ThemeState userState;
   ThemeCubit(this.userState) : super(ThemeState());
 
-  Future<void> fetchUser() async {
+  Future<void> fetchContent() async {
     //показываем в начале пустой экран
-    emit(userState.copyWith(listThemes: _listThemes, loadStatus: true));
+    emit(userState.copyWith(listThemes: _listThemes));
 
-    //грузим юзеров из памяти
+    //грузим темы из памяти
     _listThemes = await cash.getAllThemes();
-    emit(userState.copyWith(listThemes: _listThemes, loadStatus: true));
 
-    // try {
-    //   // загружаем юзеров и показываем уже из памяти
+    if (_listThemes.isEmpty){
+      //если нет
+    }
 
-    //   await _themeProvider.getThemes();
-
-    //   _listThemes = await cash.getAllThemes();
-    //   emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
-
-    // } catch(_) {
-    //   emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
-    // }
   }
 
   // Future<void> reloadUser() async {

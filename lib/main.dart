@@ -1,6 +1,6 @@
 import 'package:english_dictionary_flutter/Data/DBProvider.dart';
+import 'package:english_dictionary_flutter/Pages/ThemeList.dart';
 import 'package:flutter/material.dart';
-import 'home_page.dart';
 
 
 Future<void> main() async {
@@ -10,11 +10,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: ThemeList(),
     );
   }
 }

@@ -72,6 +72,11 @@ Future<List<ThemeWords>> getAllThemes() async {
   return box.values.toList();
 }
 
+Future<int> getCountWords() async {
+  var box = await Hive.openBox<ThemeWords>('ThemeWords');
+  return box.length;
+}
+
 
 
 /////////////////////////////  USER

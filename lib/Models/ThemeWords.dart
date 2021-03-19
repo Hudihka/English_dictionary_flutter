@@ -29,6 +29,11 @@ class ThemeWords extends HiveObject {
                       listWord: listWord);
   }
 
+  int get countFavorit{
+    final listFavor = listWord.map((e) => e.favorit);
+    return listFavor.length;
+  }
+
 }
 
 //запуск hive
