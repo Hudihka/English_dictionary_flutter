@@ -21,7 +21,10 @@ class HederTheme extends StatelessWidget {
       child: Column(
         children: [
           _getWidgetHEderAndFooter('Всего слов: $countWord'),
-          Container(),
+          Container(
+            height: 80,
+            child: _getButton(),
+          ),
           _getWidgetHEderAndFooter('Всего тем: $countThemes')
         ],
       ),
