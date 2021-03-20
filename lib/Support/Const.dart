@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:english_dictionary_flutter/Extension/String.dart';
 import 'dart:io' show Platform;
 
 
@@ -9,6 +10,7 @@ class Const {
   //COLOR
 
   static Color clearColor = Colors.red.withOpacity(0);
+  static Color lightGrey  = "F0F0F0".getColor();
 
 
   //IMAGE
