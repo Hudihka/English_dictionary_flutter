@@ -90,7 +90,7 @@ class Lenta extends StatelessWidget {
             height: 25,
             width: 60,
             child: Center(
-              child: Text('Сброс', 
+              child: Text('   Сброс', 
               style: TextStyle(color: empty? Const.lightGrey : Colors.black, ),),
             ),
           ),
@@ -136,21 +136,17 @@ class Lenta extends StatelessWidget {
                                       countWord: _countWord);
 
               cell.presedAllTheme = (){
-                // _contentCubit.tapedHeder();
+                _contentCubit.tapedHeder();
               };
 
               return cell;
             } else {
               final theme = _dataArray[index - 1];
-              print(_dataArray.length);
-              print('---------------------------');
-              print(index);
-
               final selected = _selectedList.contains(theme);
               final cell = CellTheme(selected: selected, theme: theme);
 
               cell.presedTheme = (value){
-                // _contentCubit.selectedTheme(value);
+                _contentCubit.selectedTheme(value);
               };
 
               return cell;

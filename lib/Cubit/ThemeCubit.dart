@@ -5,15 +5,32 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ThemeState {
 
-  final List<ThemeWords> listThemes;
-  final List<ThemeWords> selectedTheme;
-  final bool allSelected;
-  final int countWord;
+  List<ThemeWords> listThemes;
+  List<ThemeWords> selectedTheme;
+  bool allSelected;
+  int countWord;
 
   ThemeState({this.listThemes, this.selectedTheme, this.allSelected, this.countWord});
 
   ThemeState copyWith({List<ThemeWords> listThemes, List<ThemeWords> selectedTheme, 
                        bool allSelected, int countWord}){
+
+    if (listThemes != null){
+      this.listThemes = listThemes;
+    }
+
+    if (selectedTheme != null){
+      this.selectedTheme = selectedTheme;
+    }
+
+    if (allSelected != null){
+      this.allSelected = allSelected;
+    }
+
+    if (countWord != null){
+      this.countWord = countWord;
+    }
+    
 
     return ThemeState(listThemes: listThemes ?? this.listThemes,
                       selectedTheme: selectedTheme ?? this.selectedTheme,
@@ -60,14 +77,14 @@ class ThemeCubit extends Cubit<ThemeState>{
     _selectedTheme = [];
     _allSelected = false;
 
-    emit(userState.copyWith(selectedTheme: _selectedTheme, allSelected: _allSelected));
+    emit(userState.copyWith(listThemes: _listThemes, selectedTheme: _selectedTheme, allSelected: _allSelected));
   }
 
   selectedAll(){
     _selectedTheme = _listThemes;
     _allSelected = true;
 
-    emit(userState.copyWith(selectedTheme: _selectedTheme, allSelected: _allSelected));
+    emit(userState.copyWith(listThemes: _listThemes, selectedTheme: _selectedTheme, allSelected: _allSelected));
   }
 
   tapedHeder(){
