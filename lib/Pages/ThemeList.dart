@@ -23,7 +23,10 @@ class Lenta extends StatelessWidget {
 
   BuildContext _context;
   ThemeCubit _contentCubit;
+
   List<Theme> _dataArray = [];
+  List<Theme> _selectedList = [];
+  bool _selectedAll = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,10 @@ class Lenta extends StatelessWidget {
 
     return BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
       if (state is ThemeState) {
+
+        
+
+
 
         return _createTable();
 
@@ -57,10 +64,11 @@ class Lenta extends StatelessWidget {
     // final _newList = _reloadList(dataArray);
 
     return ListView.builder(
-          itemCount: _dataArray.length,
+          itemCount: _dataArray.length + 1,
           itemBuilder: (context, index) {
+
             if (index == 0){
-              
+
             } else {
 
             }

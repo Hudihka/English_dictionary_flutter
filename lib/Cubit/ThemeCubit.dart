@@ -5,12 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ThemeState {
 
   final List<ThemeWords> listThemes;
+  final List<ThemeWords> selectedTheme;
+  final bool allSelected;
 
-  ThemeState({this.listThemes});
+  ThemeState({this.listThemes, this.selectedTheme, this.allSelected});
 
-  ThemeState copyWith({bool loadStatus, List<ThemeWords> listThemes}){
+  ThemeState copyWith({List<ThemeWords> listThemes, List<ThemeWords> selectedTheme, bool allSelected}){
 
-    return ThemeState(listThemes: listThemes ?? this.listThemes);
+    return ThemeState(listThemes: listThemes ?? this.listThemes,
+                      selectedTheme: selectedTheme ?? this.selectedTheme,
+                      allSelected: allSelected ?? this.allSelected);
 
   }
   
@@ -21,8 +25,10 @@ class ThemeCubit extends Cubit<ThemeState>{
   
   // LoadContent _themeProvider = LoadContent();
   List<ThemeWords> _listThemes = [];
-  final DBProvider cash = DBProvider.db;
+  List<ThemeWords> _selectedTheme = [];
+  bool _allSelected = false;
 
+  final DBProvider cash = DBProvider.db;
   final ThemeState userState;
   ThemeCubit(this.userState) : super(ThemeState());
 
@@ -38,6 +44,32 @@ class ThemeCubit extends Cubit<ThemeState>{
     }
 
   }
+
+  clearAll(){
+    _selectedTheme = [];
+    _allSelected = false;
+
+    emit(userState.copyWith(selectedTheme: _selectedTheme, allSelected: _allSelected));
+  }
+
+  selectedAll(){
+    _selectedTheme = _listThemes;
+    _allSelected = true;
+
+    emit(userState.copyWith(selectedTheme: _selectedTheme, allSelected: _allSelected));
+  }
+
+  selectedTheme(ThemeWords theme){
+    _selectedTheme = _listThemes;
+    _allSelected = true;
+
+    final isConteins = _allSelected.where((item) => item.a  == "someString1");
+
+    // if (_allSelected.conta)
+
+    emit(userState.copyWith(selectedTheme: _selectedTheme, allSelected: _allSelected));
+  }
+
 
   // Future<void> reloadUser() async {
   //   try {
