@@ -1,6 +1,7 @@
 import 'package:english_dictionary_flutter/Support/Const.dart';
 import 'package:flutter/material.dart';
 import 'package:english_dictionary_flutter/Extension/String.dart';
+import 'package:material_segmented_control/material_segmented_control.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,21 +17,34 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _navigBar(),
+        child: _allContent,
       ),
+    );
+  }
+
+  Widget get _allContent {
+    return Column(
+      children: [
+        SizedBox(height: 15 + Const.statusBarHeight.toDouble(),),
+        _navigBar,
+        SizedBox(height: 10),
+        _segmentControll,
+        SizedBox(height: 5),
+        _switchContent,
+      ],
     );
   }
 
 
   //ТИТУЛЬНИК
 
-  Row _navigBar(){
+  Row get _navigBar {
     return Row(
       children: [
-        SizedBox(width: 10),
+        SizedBox(width: 15),
         Container(
           height: 35.0,
-          width: Const.wDevice - 10 - 80,
+          width: Const.wDevice - 10 - 85,
           child: Container(
             decoration: new BoxDecoration(
               color: "F2F2F2".getColor(alpha: 0.75),
@@ -97,6 +111,64 @@ class _HomePageState extends State<HomePage> {
 
   bool get _emptyText {
     return textSertch == "";
+  }
+
+  //SEGMENT CONTROL
+
+  Widget get _segmentControll{
+    return Container(
+      width: double.infinity,
+      child: _segment,
+    );
+  }
+
+  Widget get _segment {
+
+    Map<int, Widget> _children = {
+  0: Text('Rus -> Eng'),
+  1: Text('Eng -> Rus'),
+};
+
+    return MaterialSegmentedControl(
+          children: _children,
+          selectionIndex: 0,
+          borderColor: Colors.white,
+          selectedColor: Colors.black,
+          unselectedColor: Colors.white,
+          borderRadius: 10.0,
+          // disabledChildren: [
+          //   3,
+          // ],
+          onSegmentChosen: (index) {
+            // setState(() {
+            //   _currentSelection = index;
+            // });
+          },
+         );
+
+  }
+
+  //SWITCH
+
+  Widget get _switchContent{
+    return Row(
+      children: [
+        SizedBox(width: 10),
+        Switch(
+            value: false,
+            onChanged: (value) {
+              setState(() {});
+            },
+            activeTrackColor: Colors.lightGreenAccent,
+            activeColor: Colors.black,
+          ),
+        SizedBox(width: 5),
+        Container(
+          child: Text('Показывать перевод', textAlign: TextAlign.left, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
+        )
+
+      ]
+    );
   }
 
 
