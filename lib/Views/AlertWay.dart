@@ -6,12 +6,9 @@ class AlertWay extends StatelessWidget {
   Function rusEng;
   Function engRus;
 
-  // AlertWay(Function lening, ){
-  //   this._title = title;
-  //   this._content = content;
-  //   this._yesOnPressed = yesOnPressed;
-  //   this._yes = yes;
-  // }
+  BuildContext context;
+
+  AlertWay({@required this.context});
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +28,28 @@ class AlertWay extends StatelessWidget {
   Widget _remindButton() {
     return FlatButton(textColor: Colors.black,
                       child: Text("Учить"),
-                      onPressed: lening);
+                      onPressed: (){
+                        Navigator.of(context, rootNavigator: true).pop();
+                        lening();
+                      });
   }
 
   Widget _cancelButton() {
     return FlatButton(textColor: Colors.black,
                       child: Text("Rus -> Eng"),
-                      onPressed: rusEng);
+                      onPressed: (){
+                        Navigator.of(context, rootNavigator: true).pop();
+                        rusEng();
+                      });
   }
 
    Widget _launchButton() {
     return FlatButton(textColor: Colors.black,
                       child: Text("Eng -> Rus"),
-                      onPressed: engRus);
+                      onPressed: (){
+                        Navigator.of(context, rootNavigator: true).pop();
+                        engRus();
+                      });
   }
-
 
 }

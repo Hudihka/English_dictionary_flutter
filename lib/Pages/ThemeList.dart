@@ -1,3 +1,4 @@
+import 'package:english_dictionary_flutter/Pages/Cramming.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
 import 'package:english_dictionary_flutter/Views/AlertWay.dart';
 import 'package:english_dictionary_flutter/Views/CellTheme.dart';
@@ -184,10 +185,12 @@ class Lenta extends StatelessWidget {
 
 
   _alert(){
-    final alert = AlertWay();
+    final alert = AlertWay(context: _context,);
 
     alert.lening = (){
-      print('------0');
+      Navigator.push(_context, MaterialPageRoute(
+            builder: (context) => HomePage()),
+      );
     };
 
     alert.rusEng = (){
