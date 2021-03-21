@@ -48,8 +48,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icon/favorit.png
-    - assets/icon/not_favorit.png
+  - assets/icons/favorit.png
+  - assets/icons/not_favorit.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

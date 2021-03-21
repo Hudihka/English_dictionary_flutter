@@ -50,7 +50,7 @@ class HederTheme extends StatelessWidget {
 
     Widget _getButton(){
     return RaisedButton(
-        color: selected ? Colors.black : Const.lightGrey,
+        color: selected ? Colors.black : Colors.white,
         child: Center(
           child: Text('ВЫБРАТЬ ВСЕ', 
           style: TextStyle(

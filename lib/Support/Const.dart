@@ -10,7 +10,7 @@ class Const {
   //COLOR
 
   static Color clearColor = Colors.red.withOpacity(0);
-  static Color lightGrey  = "F0F0F0".getColor();
+  static Color lightGrey  = "F2F2F2".getColor(alpha: 0.2);
 
 
   //IMAGE

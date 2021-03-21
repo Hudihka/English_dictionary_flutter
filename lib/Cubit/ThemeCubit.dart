@@ -1,3 +1,4 @@
+import 'package:english_dictionary_flutter/API/LoadContent.dart';
 import 'package:english_dictionary_flutter/Data/DBProvider.dart';
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,8 @@ class ThemeState {
 
 class ThemeCubit extends Cubit<ThemeState>{
   
-  // LoadContent _themeProvider = LoadContent();
+  LoadContent _themeProvider = LoadContent();
+  
   List<ThemeWords> _listThemes = [];
   List<ThemeWords> _selectedTheme = [];
   bool _allSelected = false;
@@ -40,6 +42,8 @@ class ThemeCubit extends Cubit<ThemeState>{
   Future<void> fetchContent() async {
     //показываем в начале пустой экран
     emit(userState.copyWith(listThemes: [], selectedTheme: [], allSelected: false, countWord: 0));
+
+    await _themeProvider.loadContent();
 
     //грузим темы из памяти
     _listThemes = await cash.getAllThemes();

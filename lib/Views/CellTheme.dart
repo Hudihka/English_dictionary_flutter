@@ -17,7 +17,8 @@ class CellTheme extends StatelessWidget {
         presedTheme(theme);
       },
       child: Container(
-        color: selected ? Colors.black : Const.lightGrey,
+        width: double.infinity,
+        color: selected ? Colors.black : Colors.white,
         child: Padding(
           padding: EdgeInsets.only(left: 16, top: 17, right: 16, bottom: 13),
           child: _content,
@@ -30,6 +31,7 @@ class CellTheme extends StatelessWidget {
     return Column(
       children: [
         Container(
+          width: double.infinity,
           height: 19,
           child: Text(
             theme.name, 
@@ -74,7 +76,7 @@ class CellTheme extends StatelessWidget {
                   // shape: BoxShape.,
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage("assets/icon/favorit.png"),
+                    image: AssetImage("assets/icons/favorit.png"),
                   ),
                 ),
               ),

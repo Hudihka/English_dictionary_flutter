@@ -52,7 +52,7 @@ class Lenta extends StatelessWidget {
         } else {
           return _createScafold;
         }
-        
+
       }
     });
   }
@@ -87,9 +87,8 @@ class Lenta extends StatelessWidget {
           leading: GestureDetector(
           behavior: HitTestBehavior.translucent,
           child: Container(
-            height: 30,
+            height: 25,
             width: 60,
-            // color: Colors.red,
             child: Center(
               child: Text('Сброс', 
               style: TextStyle(color: empty? Const.lightGrey : Colors.black, ),),
@@ -104,12 +103,17 @@ class Lenta extends StatelessWidget {
 
 
 
-  Column _allContent(){
-    return Column(
+  Widget _allContent(){
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
       children: [
         _createTable(),
+
         _createButton()
       ],
+    )
     );
   }
 
@@ -118,7 +122,11 @@ class Lenta extends StatelessWidget {
 
   Widget _createTable() {
 
-    return ListView.builder(
+    return Container(
+      width: double.infinity,
+      height: Const.hDevice - 64 - 83,
+      child: ListView.builder(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           itemCount: _dataArray.length + 1,
           itemBuilder: (context, index) {
 
@@ -128,23 +136,28 @@ class Lenta extends StatelessWidget {
                                       countWord: _countWord);
 
               cell.presedAllTheme = (){
-                _contentCubit.tapedHeder();
+                // _contentCubit.tapedHeder();
               };
 
               return cell;
             } else {
-              final theme = _dataArray[index + 1];
+              final theme = _dataArray[index - 1];
+              print(_dataArray.length);
+              print('---------------------------');
+              print(index);
+
               final selected = _selectedList.contains(theme);
               final cell = CellTheme(selected: selected, theme: theme);
 
               cell.presedTheme = (value){
-                _contentCubit.selectedTheme(value);
+                // _contentCubit.selectedTheme(value);
               };
 
               return cell;
             }
 
-    });
+      }),
+    );
   }
 
     Widget _createButton() {
@@ -155,7 +168,7 @@ class Lenta extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
         child: RaisedButton(
-        color: _selectedList.isEmpty ? Const.lightGrey : Colors.black,
+        color: _selectedList.isEmpty ? Colors.white : Colors.black,
         child: Center(
           child: Text('НАЧАТЬ', 
           style: TextStyle(
@@ -166,7 +179,7 @@ class Lenta extends StatelessWidget {
                 print("jbijhhhhbhhbhbhb");
               },
         shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(5)))
+            borderRadius: new BorderRadius.circular(10)))
       ),
 
     );
