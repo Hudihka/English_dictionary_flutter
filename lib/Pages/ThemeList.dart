@@ -1,4 +1,5 @@
 import 'package:english_dictionary_flutter/Support/Const.dart';
+import 'package:english_dictionary_flutter/Views/AlertWay.dart';
 import 'package:english_dictionary_flutter/Views/CellTheme.dart';
 import 'package:english_dictionary_flutter/Views/HederThemes.dart';
 import 'package:flutter/material.dart';
@@ -172,7 +173,7 @@ class Lenta extends StatelessWidget {
             fontSize: 20, fontWeight: FontWeight.bold)),
         ),
         onPressed: _selectedList.isEmpty ? null : () {
-                print("jbijhhhhbhhbhbhb");
+                _alert();
               },
         shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(10)))
@@ -180,5 +181,27 @@ class Lenta extends StatelessWidget {
 
     );
   }
+
+
+  _alert(){
+    final alert = AlertWay();
+
+    alert.lening = (){
+      print('------0');
+    };
+
+    alert.rusEng = (){
+      print('------1');
+    };
+
+    alert.engRus = (){
+      print('------2');
+    };
+
+
+    showDialog(context: _context, builder: (BuildContext context) => alert);
+  }
+
+
 
 }
