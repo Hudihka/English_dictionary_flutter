@@ -6,7 +6,7 @@ class CellTheme extends StatelessWidget {
   bool selected;
   ThemeWords theme;
 
-  Function presedTheme;
+  Function(ThemeWords) presedTheme;
 
   CellTheme({@required this.selected, @required this.theme});
 
@@ -14,7 +14,7 @@ class CellTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        presedTheme();
+        presedTheme(theme);
       },
       child: Container(
         color: selected ? Colors.black : Const.lightGrey,

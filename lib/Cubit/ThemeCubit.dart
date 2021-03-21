@@ -7,14 +7,17 @@ class ThemeState {
   final List<ThemeWords> listThemes;
   final List<ThemeWords> selectedTheme;
   final bool allSelected;
+  final int countWord;
 
-  ThemeState({this.listThemes, this.selectedTheme, this.allSelected});
+  ThemeState({this.listThemes, this.selectedTheme, this.allSelected, this.countWord});
 
-  ThemeState copyWith({List<ThemeWords> listThemes, List<ThemeWords> selectedTheme, bool allSelected}){
+  ThemeState copyWith({List<ThemeWords> listThemes, List<ThemeWords> selectedTheme, 
+                       bool allSelected, int countWord}){
 
     return ThemeState(listThemes: listThemes ?? this.listThemes,
                       selectedTheme: selectedTheme ?? this.selectedTheme,
-                      allSelected: allSelected ?? this.allSelected);
+                      allSelected: allSelected ?? this.allSelected,
+                      countWord: countWord ?? this.countWord);
 
   }
   
@@ -30,19 +33,23 @@ class ThemeCubit extends Cubit<ThemeState>{
 
   final DBProvider cash = DBProvider.db;
   final ThemeState userState;
+
   ThemeCubit(this.userState) : super(ThemeState());
+
 
   Future<void> fetchContent() async {
     //показываем в начале пустой экран
-    emit(userState.copyWith(listThemes: _listThemes));
+    emit(userState.copyWith(listThemes: [], selectedTheme: [], allSelected: false, countWord: 0));
 
     //грузим темы из памяти
     _listThemes = await cash.getAllThemes();
 
-    if (_listThemes.isEmpty){
-      //если нет
+    var allCount = 0;
+    for (var them in _listThemes){
+      allCount += them.listWord.length;
     }
 
+    emit(userState.copyWith(listThemes: _listThemes, selectedTheme: [], allSelected: false, countWord: allCount));
   }
 
   clearAll(){
@@ -59,15 +66,26 @@ class ThemeCubit extends Cubit<ThemeState>{
     emit(userState.copyWith(selectedTheme: _selectedTheme, allSelected: _allSelected));
   }
 
+  tapedHeder(){
+    if (_allSelected){
+      clearAll();
+    } else {
+      selectedAll();
+    }
+  }
+
   selectedTheme(ThemeWords theme){
-    _selectedTheme = _listThemes;
-    _allSelected = true;
 
-    final isConteins = _allSelected.where((item) => item.a  == "someString1");
+    final isConteins = _selectedTheme.contains(theme);
+    if (isConteins){
+      _selectedTheme.remove(theme);
+    } else {
+      _selectedTheme.add(theme);
+    }
 
-    // if (_allSelected.conta)
+    final all = _selectedTheme.length == _listThemes.length;
 
-    emit(userState.copyWith(selectedTheme: _selectedTheme, allSelected: _allSelected));
+    emit(userState.copyWith(selectedTheme: _selectedTheme, allSelected: all));
   }
 
 
