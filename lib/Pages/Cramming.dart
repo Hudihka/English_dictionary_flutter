@@ -28,15 +28,17 @@ class HomePage extends StatelessWidget {
   }
 
   Widget get _allContent {
+
     return Column(
+      
       children: [
-        SizedBox(height: Const.statusBarHeight.toDouble(),),
+        SizedBox(height: 10 + Const.statusBarHeight.toDouble(),),
         _navigBar,
         SizedBox(height: 10),
         _segmentControll,
         SizedBox(height: 5),
         _switchContent,
-
+        _listTV
       ],
     );
   }
@@ -182,22 +184,18 @@ class HomePage extends StatelessWidget {
   Widget get _listTV {
 
 
-
-    // final contentArray = _emptyText ?  
-
-    if (_dataArray.isEmpty){
-      return Center(
-        child: Text("Очисти поиск.\n\nНет слов.",
-          style: TextStyle(color: Colors.black, fontSize: 23, fontWeight: FontWeight.w400),
-        )
-      );
-    }
-
-
     return Container(
       width: double.infinity,
       constraints: BoxConstraints(maxHeight: double.infinity,),
-      child: ListView.builder(
+      child: _dataArray.isEmpty ? 
+      
+      Center(
+        child: Text("Очисти поиск.\n\nНет слов.",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.black, fontSize: 23, fontWeight: FontWeight.w400),
+        )
+      ) : 
+      ListView.builder(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           itemCount: _dataArray.length,
           itemBuilder: (context, index) {
@@ -205,9 +203,35 @@ class HomePage extends StatelessWidget {
             
             return CellWord(word: word, rusWay: _rusEngTranslate, hideTarnslate: _hideTranslate);
 
-      }),
+      })
     );
   }
+
+  // Widget get _contentList {
+
+  //   if (_dataArray.isEmpty){
+  //     return Center(
+  //       child: Text("Очисти поиск.\n\nНет слов.",
+  //         textAlign: ,
+  //         style: TextStyle(color: Colors.black, fontSize: 23, fontWeight: FontWeight.w400),
+  //       )
+  //     );
+  //   } else {
+  //     return ListView.builder(
+  //         physics: BouncingScrollPhysics(
+  //           parent: AlwaysScrollableScrollPhysics()),
+  //         itemCount: _dataArray.length,
+  //         itemBuilder: (context, index) {
+  //           Word word = _dataArray[index];
+            
+  //           return CellWord(word: word, rusWay: _rusEngTranslate, hideTarnslate: _hideTranslate);
+
+  //     });
+
+  //   }
+
+
+  // }
 
 
 }
