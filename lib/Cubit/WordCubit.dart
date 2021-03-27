@@ -13,11 +13,14 @@ class WordsState {
   int indexSegment;
   bool hideTranslate;
 
-  WordsState({this.words, this.indexSegment, this.hideTranslate});
+  String textSertch;
+
+  WordsState({this.words, this.indexSegment, this.hideTranslate, this.textSertch});
 
   WordsState copyWith({List<Word> newWords, 
                        int newIndexSegment, 
-                       bool newHideTranslate}){
+                       bool newHideTranslate,
+                       String newTextSertch}){
 
     if (newWords != null){
       this.words = newWords;
@@ -30,11 +33,15 @@ class WordsState {
     if (newHideTranslate != null){
       this.hideTranslate = newHideTranslate;
     }
-    
 
+    if (newTextSertch != null){
+      this.textSertch = newTextSertch;
+    }
+    
     return WordsState(words: words,
                       indexSegment: indexSegment,
-                      hideTranslate: hideTranslate);
+                      hideTranslate: hideTranslate,
+                      textSertch: textSertch ?? "");
 
   }
   
@@ -48,8 +55,9 @@ class WordCubit extends Cubit<WordsState>{
   List<Word> _listWord = [];
   List<Word> _sertchWords = [];
 
-  // int  _rusValue = true;
-  // bool _hideTranslate = true;
+  int _indexTranslete = 0;
+
+  String text = "";
 
   final DBProvider cash = DBProvider.db;
   final DefaultUtils userDF = DefaultUtils.shared;
@@ -61,12 +69,12 @@ class WordCubit extends Cubit<WordsState>{
 
   Future<void> fetchContent() async {
 
-    final index = await userDF.wayTranslate;
+    _indexTranslete = await userDF.wayTranslate;
     final hideTranslate = await userDF.hideTranslate;
 
-    _listWord = await cash.getWordsSorted(themesID, index == 0);
+    _listWord = await cash.getWordsSorted(themesID, _indexTranslete == 0, text: text);
 
-    emit(userState.copyWith(newWords: _listWord, newIndexSegment: index, newHideTranslate: hideTranslate));
+    emit(userState.copyWith(newWords: _listWord, newIndexSegment: _indexTranslete, newHideTranslate: hideTranslate));
   }
 
   switchAction(bool newValue) async {
@@ -79,51 +87,37 @@ class WordCubit extends Cubit<WordsState>{
     await fetchContent();
   }
 
-  // clearAll(){
-  //   _selectedTheme = [];
-  //   _allSelected = false;
 
-  //   emit(userState.copyWith(listThemes: _listThemes, selectedTheme: _selectedTheme, allSelected: _allSelected));
-  // }
+  textSertch(String text) {
 
-  // selectedAll(){
-  //   _selectedTheme = _listThemes;
-  //   _allSelected = true;
+    if (text == ""){
+      emit(userState.copyWith(newWords: _listWord));
+      return;
+    }
 
-  //   emit(userState.copyWith(listThemes: _listThemes, selectedTheme: _selectedTheme, allSelected: _allSelected));
-  // }
+    if (_indexTranslete == 0){
+      _sertchWords = _listWord.where((element) => element.rusValue.contains(text)).toList();
+    } else {
+      _sertchWords = _listWord.where((element) => element.engValue.contains(text)).toList();
+    }
 
-  // tapedHeder(){
-  //   if (_allSelected){
-  //     clearAll();
+    emit(userState.copyWith(newWords: _sertchWords));
+  }
+
+  // clearSertch(String text) {
+
+  //   if (text == ""){
+  //     emit(userState.copyWith(newWords: _listWord));
+  //     return;
+  //   }
+
+  //   if (_indexTranslete == 0){
+  //     _sertchWords = _listWord.where((element) => element.rusValue.contains(text)).toList();
   //   } else {
-  //     selectedAll();
-  //   }
-  // }
-
-  // selectedTheme(ThemeWords theme){
-
-  //   final isConteins = _selectedTheme.contains(theme);
-  //   if (isConteins){
-  //     _selectedTheme.remove(theme);
-  //   } else {
-  //     _selectedTheme.add(theme);
+  //     _sertchWords = _listWord.where((element) => element.engValue.contains(text)).toList();
   //   }
 
-  //   final all = _selectedTheme.length == _listThemes.length;
-
-  //   emit(userState.copyWith(selectedTheme: _selectedTheme, allSelected: all));
-  // }
-
-
-  // Future<void> reloadUser() async {
-  //   try {
-  //     await _themeProvider.getThemes();
-  //     _listThemes = await cash.getAllThemes();
-  //     emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
-  //   } catch(_) {
-  //     emit(userState.copyWith(listThemes: _listThemes, loadStatus: false));
-  //   }
+  //   emit(userState.copyWith(newWords: _sertchWords));
   // }
 
 

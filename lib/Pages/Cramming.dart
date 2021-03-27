@@ -111,8 +111,7 @@ class CrammingContent extends StatelessWidget {
             ),
           ),
           onTap: _emptyText ? null : () {
-            // textSertch = "";
-            //очистить
+            _contentCubit.textSertch("");
           },
         )
       ]
@@ -143,14 +142,11 @@ class CrammingContent extends StatelessWidget {
       textAlign: TextAlign.left,
       onChanged: (str) {
         textSertch = str;
-        // setState(() {});
-        //запусекаем поиск
+        _contentCubit.textSertch(str);
       },
       onSubmitted: (str) {
+        // _contentCubit.textSertch(str);
         //если пользователь нажал ВВод
-        // if (isName) {
-        //   FocusScope.of(context).previousFocus();
-        // }
         
       },
     );

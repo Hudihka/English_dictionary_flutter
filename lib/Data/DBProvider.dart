@@ -89,7 +89,7 @@ Future<List<ThemeWords>> getThemes(List<String> listID) async {
 
 //получение слов тем по id
 
-Future<List<Word>> getWordsSorted(List<String> listIDThemes, bool rusSorted) async {
+Future<List<Word>> getWordsSorted(List<String> listIDThemes, bool rusSorted, {@required String text}) async {
   List<Word> listWord = await _getWords(listIDThemes);
 
   if (rusSorted){
@@ -105,6 +105,15 @@ Future<List<Word>> getWordsSorted(List<String> listIDThemes, bool rusSorted) asy
     });
 
   }
+
+    if (text != ""){
+      if (rusSorted){
+        listWord.where((element) => element.rusValue.contains(text)).toList();
+      } else {
+        listWord.where((element) => element.engValue.contains(text)).toList();
+      }
+    }
+
 
   return listWord;
 }
