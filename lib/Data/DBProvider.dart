@@ -2,6 +2,7 @@
 
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
@@ -75,6 +76,15 @@ Future<List<ThemeWords>> getAllThemes() async {
 Future<int> getCountWords() async {
   var box = await Hive.openBox<ThemeWords>('ThemeWords');
   return box.length;
+}
+
+//получение тем по id
+
+Future<List<ThemeWords>> getThemes(List<String> listID) async {
+  var box = await Hive.openBox<ThemeWords>('ThemeWords');
+  List<ThemeWords> listThemes = box.values.toList();
+
+  return listThemes.where((element) => listID.contains(element.id));
 }
 
 

@@ -4,15 +4,71 @@ import 'package:english_dictionary_flutter/Support/Const.dart';
 import 'package:english_dictionary_flutter/Views/CellWord.dart';
 import 'package:flutter/material.dart';
 import 'package:english_dictionary_flutter/Extension/String.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 
 
-class HomePage extends StatelessWidget {
+class Cramming extends StatelessWidget {
+  final state = WordsState();
+  List<String> themesID;
+
+  Cramming({@required this.themesID});
+
+  @override
+  Widget build(BuildContext context) {
+    Const.setSize(context);
+
+    return BlocProvider<WordCubit>(
+      create: (context) => WordCubit(state, themesID: themesID),
+      child: CrammingContent()
+    );
+  }
+}
+
+class CrammingContent extends StatelessWidget {
 
   BuildContext _context;
   WordCubit _contentCubit;
 
   List<Word> _dataArray = [];
+  int _selectedIndexWay = 0;
+  bool _hideWord = true;
+
+  @override
+  Widget build(BuildContext context) {
+    //говорит о том, что грузим юзеров при запуске
+    _context = context;
+
+    _contentCubit = context.read();
+    _contentCubit.fetchContent();
+
+    return BlocBuilder<WordCubit, WordsState>(builder: (context, state) {
+      if (state is WordsState) {
+
+        _dataArray = state.listThemes ?? [];
+        _selectedList = state.selectedTheme ?? [];
+        _selectedAll = state.allSelected ?? false;
+        _countWord = state.countWord ?? 0;
+
+        if (_dataArray.isEmpty){
+          return _scafoldEmptu;
+        } else {
+          return _createScafold;
+        }
+
+      }
+    });
+  }
+
+
+
+
+  List<String> themesID;
+
+  BuildContext _context;
+  WordCubit _contentCubit;
+
+  List<Word> dataArray;
   
   bool _rusEngTranslate = true;
   bool _hideTranslate = true;
@@ -28,9 +84,9 @@ class HomePage extends StatelessWidget {
   }
 
   Widget get _allContent {
-
-    return Column(
-      
+    return Container(
+      color: Colors.white,
+      child: Column(
       children: [
         SizedBox(height: 10 + Const.statusBarHeight.toDouble(),),
         _navigBar,
@@ -40,6 +96,7 @@ class HomePage extends StatelessWidget {
         _switchContent,
         _listTV
       ],
+    )
     );
   }
 
@@ -186,9 +243,10 @@ class HomePage extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      constraints: BoxConstraints(maxHeight: double.infinity,),
-      child: _dataArray.isEmpty ? 
-      
+      // constraints: BoxConstraints(maxHeight: double.infinity,),
+      height: Const.hDevice - 148 - Const.statusBarHeight.toDouble(),
+      child: dataArray.isEmpty ? 
+
       Center(
         child: Text("Очисти поиск.\n\nНет слов.",
           textAlign: TextAlign.center,
@@ -197,41 +255,15 @@ class HomePage extends StatelessWidget {
       ) : 
       ListView.builder(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          itemCount: _dataArray.length,
+          itemCount: dataArray.length,
           itemBuilder: (context, index) {
-            Word word = _dataArray[index];
+            Word word = dataArray[index];
             
-            return CellWord(word: word, rusWay: _rusEngTranslate, hideTarnslate: _hideTranslate);
+            return CellWord(word: word, rusWay: _rusEngTranslate, hideTarnslate: false);
 
       })
     );
   }
-
-  // Widget get _contentList {
-
-  //   if (_dataArray.isEmpty){
-  //     return Center(
-  //       child: Text("Очисти поиск.\n\nНет слов.",
-  //         textAlign: ,
-  //         style: TextStyle(color: Colors.black, fontSize: 23, fontWeight: FontWeight.w400),
-  //       )
-  //     );
-  //   } else {
-  //     return ListView.builder(
-  //         physics: BouncingScrollPhysics(
-  //           parent: AlwaysScrollableScrollPhysics()),
-  //         itemCount: _dataArray.length,
-  //         itemBuilder: (context, index) {
-  //           Word word = _dataArray[index];
-            
-  //           return CellWord(word: word, rusWay: _rusEngTranslate, hideTarnslate: _hideTranslate);
-
-  //     });
-
-  //   }
-
-
-  // }
 
 
 }

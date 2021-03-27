@@ -35,29 +35,47 @@ class CellWord extends StatelessWidget {
 
   Row get _hederCell {
 
-    final imageName = word.favorit ? "assets/icons/favorit.png" : "assets/icons/not_favorit.png";
+    final favorit = word.favorit ?? false;
+
+    final imageName = favorit ? "assets/icons/favorit.png" : "assets/icons/not_favorit.png";
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      // crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Padding(
-          padding: EdgeInsets.only(left: 20, top: 5, right: 0, bottom: 0),
+
+        Container(
+          color: Colors.white,
+          width: Const.wDevice - 50,
+          child: Padding(
+          padding: EdgeInsets.only(left: 20, top: 0, right: 0, bottom: 0),
           child: Text(rusWay ? word.rusValue : word.engValue,
             textAlign: TextAlign.left,
             style: TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold),
           ),
         ),
+        ),
+
+
+
         GestureDetector(
           onTap: () {
             presedWord(word);
           },
         child: Container(
+          alignment: Alignment.topRight,
           width: 50,
           height: 50,
           color: Colors.white,
           child: Center(
-            child: Image.asset(imageName)
+            child: Container(
+              height: 25,
+              width: 25,
+              child: Image.asset(imageName)
+            )
           )
+          
+          
+        
       ),
     )
       ],
@@ -73,6 +91,7 @@ class CellWord extends StatelessWidget {
     if (descr != ""){
       translate = translate + "/n/n$descr";
     }
+
 
     return Container(
       width: double.infinity,

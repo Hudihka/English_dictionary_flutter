@@ -1,5 +1,6 @@
 import 'package:english_dictionary_flutter/Pages/Cramming.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
+import 'package:english_dictionary_flutter/Support/ScafoldLoad.dart';
 import 'package:english_dictionary_flutter/Views/AlertWay.dart';
 import 'package:english_dictionary_flutter/Views/CellTheme.dart';
 import 'package:english_dictionary_flutter/Views/HederThemes.dart';
@@ -50,7 +51,7 @@ class Lenta extends StatelessWidget {
         _countWord = state.countWord ?? 0;
 
         if (_dataArray.isEmpty){
-          return _scafoldEmptu;
+          return ScafoldLoad();
         } else {
           return _createScafold;
         }
@@ -59,16 +60,7 @@ class Lenta extends StatelessWidget {
     });
   }
 
-    Scaffold get _scafoldEmptu {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                    ),
-        ),
-      );
-  }
+
 
   Scaffold get _createScafold {
     return Scaffold(
@@ -188,8 +180,13 @@ class Lenta extends StatelessWidget {
     final alert = AlertWay(context: _context,);
 
     alert.lening = (){
+
+      List<String> listID = _selectedList.map((e) => e.id);
+
+      final cramming = Cramming(themesID: listID);
+
       Navigator.push(_context, MaterialPageRoute(
-            builder: (context) => HomePage()),
+            builder: (context) => cramming),
       );
     };
 

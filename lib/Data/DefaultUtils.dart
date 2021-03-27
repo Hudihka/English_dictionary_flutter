@@ -26,7 +26,7 @@ class DefaultUtils{
   Future<int> get wayTranslate async {
     final SharedPreferences prefs = await _prefs;
     final key = _getKey(_EnumKeys.wayTranslate);
-    return prefs.get(key);
+    return prefs.get(key) ?? 0;
   }
 
 
@@ -36,12 +36,12 @@ class DefaultUtils{
     prefs.setInt(key, index);
   }
 
-  //refresh token
+  //hideTranslate
 
   Future<bool> get hideTranslate async {
     final SharedPreferences prefs = await _prefs;
     final key = _getKey(_EnumKeys.hideTranslate);
-    return prefs.get(key);
+    return prefs.get(key) ?? true;
   }
 
   Future<void> saveRefreshToken(bool value) async {

@@ -2,44 +2,38 @@ import 'package:english_dictionary_flutter/API/LoadContent.dart';
 import 'package:english_dictionary_flutter/Data/DBProvider.dart';
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WordsState {
 
   List<Word> words;
-  List<Word> sertchWords;
 
-  bool rusValue;
+  int indexSegment;
   bool hideTranslate;
 
-  WordsState({this.words, this.sertchWords, this.rusValue, this.hideTranslate});
+  WordsState({this.words, this.indexSegment, this.hideTranslate});
 
-  WordsState copyWith({List<Word> words, 
-                       List<Word> sertchWords, 
-                       bool rusValue, 
-                       bool hideTranslate}){
+  WordsState copyWith({List<Word> newWords, 
+                       int newIndexSegment, 
+                       bool newHideTranslate}){
 
-    if (words != null){
-      this.words = words;
+    if (newWords != null){
+      this.words = newWords;
     }
 
-    if (sertchWords != null){
-      this.sertchWords = sertchWords;
+    if (newIndexSegment != null){
+      this.indexSegment = newIndexSegment;
     }
 
-    if (rusValue != null){
-      this.rusValue = rusValue;
-    }
-
-    if (hideTranslate != null){
-      this.hideTranslate = hideTranslate;
+    if (newHideTranslate != null){
+      this.hideTranslate = newHideTranslate;
     }
     
 
-    return WordsState(words: words ?? this.words,
-                      sertchWords: sertchWords ?? this.sertchWords,
-                      rusValue: rusValue ?? this.rusValue,
-                      hideTranslate: hideTranslate ?? this.hideTranslate);
+    return WordsState(words: words,
+                      indexSegment: indexSegment,
+                      hideTranslate: hideTranslate);
 
   }
   
@@ -47,6 +41,8 @@ class WordsState {
 
 
 class WordCubit extends Cubit<WordsState>{
+
+  List<String> themesID;
   
   List<Word> _listWord = [];
   List<Word> _sertchWords = [];
@@ -57,25 +53,33 @@ class WordCubit extends Cubit<WordsState>{
   final DBProvider cash = DBProvider.db;
   final WordsState userState;
 
-  WordCubit(this.userState) : super(WordsState());
+  WordCubit(this.userState, {@required this.themesID}) : super(WordsState());
 
 
-  // Future<void> fetchContent() async {
-  //   //показываем в начале пустой экран
-  //   emit(userState.copyWith(listThemes: [], selectedTheme: [], allSelected: false, countWord: 0));
+  Future<void> fetchContent() {
 
-  //   await _themeProvider.loadContent();
+    final listThemes = 
 
-  //   //грузим темы из памяти
-  //   _listThemes = await cash.getAllThemes();
 
-  //   var allCount = 0;
-  //   for (var them in _listThemes){
-  //     allCount += them.listWord.length;
-  //   }
 
-  //   emit(userState.copyWith(listThemes: _listThemes, selectedTheme: [], allSelected: false, countWord: allCount));
-  // }
+
+
+
+    //показываем в начале пустой экран
+    // emit(userState.copyWith(listThemes: [], selectedTheme: [], allSelected: false, countWord: 0));
+
+    // await _themeProvider.loadContent();
+
+    // //грузим темы из памяти
+    // _listThemes = await cash.getAllThemes();
+
+    // var allCount = 0;
+    // for (var them in _listThemes){
+    //   allCount += them.listWord.length;
+    // }
+
+    // emit(userState.copyWith(listThemes: _listThemes, selectedTheme: [], allSelected: false, countWord: allCount));
+  }
 
   // clearAll(){
   //   _selectedTheme = [];
