@@ -1,4 +1,7 @@
+import 'package:english_dictionary_flutter/Cubit/WordCubit.dart';
+import 'package:english_dictionary_flutter/Models/Word.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
+import 'package:english_dictionary_flutter/Views/CellWord.dart';
 import 'package:flutter/material.dart';
 import 'package:english_dictionary_flutter/Extension/String.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
@@ -9,32 +12,31 @@ class HomePage extends StatelessWidget {
   BuildContext _context;
   WordCubit _contentCubit;
 
-  List<Words> _dataArray = [];
+  List<Word> _dataArray = [];
   
   bool _rusEngTranslate = true;
   bool _hideTranslate = true;
 
-  String _textSertch = "";
+  String textSertch = "";
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _allContent,
-      ),
+      body: _allContent,
     );
   }
 
   Widget get _allContent {
     return Column(
       children: [
-        SizedBox(height: 15 + Const.statusBarHeight.toDouble(),),
+        SizedBox(height: Const.statusBarHeight.toDouble(),),
         _navigBar,
         SizedBox(height: 10),
         _segmentControll,
         SizedBox(height: 5),
         _switchContent,
+
       ],
     );
   }
@@ -68,7 +70,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           onTap: _emptyText ? null : () {
-            textSertch = "";
+            // textSertch = "";
             //очистить
           },
         )
@@ -175,43 +177,33 @@ class HomePage extends StatelessWidget {
     );
   }
 
+
+
   Widget get _listTV {
 
 
 
-    final contentArray = _emptyText ?  
+    // final contentArray = _emptyText ?  
 
+    if (_dataArray.isEmpty){
+      return Center(
+        child: Text("Очисти поиск.\n\nНет слов.",
+          style: TextStyle(color: Colors.black, fontSize: 23, fontWeight: FontWeight.w400),
+        )
+      );
+    }
 
 
     return Container(
       width: double.infinity,
-      height: Const.hDevice - 64 - 83,
+      constraints: BoxConstraints(maxHeight: double.infinity,),
       child: ListView.builder(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          itemCount: _dataArray.length + 1,
+          itemCount: _dataArray.length,
           itemBuilder: (context, index) {
-
-            if (index == 0){
-              final cell = HederTheme(selected: _selectedAll, 
-                                      countThemes: _dataArray.length, 
-                                      countWord: _countWord);
-
-              cell.presedAllTheme = (){
-                _contentCubit.tapedHeder();
-              };
-
-              return cell;
-            } else {
-              final theme = _dataArray[index - 1];
-              final selected = _selectedList.contains(theme);
-              final cell = CellTheme(selected: selected, theme: theme);
-
-              cell.presedTheme = (value){
-                _contentCubit.selectedTheme(value);
-              };
-
-              return cell;
-            }
+            Word word = _dataArray[index];
+            
+            return CellWord(word: word, rusWay: _rusEngTranslate, hideTarnslate: _hideTranslate);
 
       }),
     );
@@ -220,5 +212,3 @@ class HomePage extends StatelessWidget {
 
 }
 
-class Words {
-}
