@@ -69,6 +69,16 @@ class WordCubit extends Cubit<WordsState>{
     emit(userState.copyWith(newWords: _listWord, newIndexSegment: index, newHideTranslate: hideTranslate));
   }
 
+  switchAction(bool newValue) async {
+    await userDF.saveHideValue(newValue);
+    emit(userState.copyWith(newHideTranslate: newValue));
+  }
+
+  newWayTranslate(int newValue) async {
+    await userDF.saveWayTranslate(newValue);
+    await fetchContent();
+  }
+
   // clearAll(){
   //   _selectedTheme = [];
   //   _allSelected = false;

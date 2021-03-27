@@ -183,13 +183,8 @@ class CrammingContent extends StatelessWidget {
           selectedColor: Colors.black,
           unselectedColor: Colors.white,
           borderRadius: 10.0,
-          // disabledChildren: [
-          //   3,
-          // ],
           onSegmentChosen: (index) {
-            // setState(() {
-            //   _currentSelection = index;
-            // });
+            _contentCubit.newWayTranslate(index);
           },
          );
 
@@ -204,7 +199,7 @@ class CrammingContent extends StatelessWidget {
         Switch(
             value: _hideWord,
             onChanged: (value) {
-              // setState(() {});
+              _contentCubit.switchAction(value);
             },
             activeTrackColor: "F2F2F2".getColor(alpha: 0.75),
             activeColor: Colors.black,

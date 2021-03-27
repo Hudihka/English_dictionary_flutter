@@ -44,7 +44,7 @@ class DefaultUtils{
     return prefs.get(key) ?? true;
   }
 
-  Future<void> saveRefreshToken(bool value) async {
+  Future<void> saveHideValue(bool value) async {
     final SharedPreferences prefs = await _prefs;
     final key = _getKey(_EnumKeys.hideTranslate);
     prefs.setBool(key, value);
