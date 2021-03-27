@@ -206,12 +206,12 @@ class CrammingContent extends StatelessWidget {
             onChanged: (value) {
               // setState(() {});
             },
-            activeTrackColor: Colors.lightGreenAccent,
+            activeTrackColor: "F2F2F2".getColor(alpha: 0.75),
             activeColor: Colors.black,
           ),
         SizedBox(width: 5),
         Container(
-          child: Text('Показывать перевод', textAlign: TextAlign.left, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
+          child: Text('Скрыть перевод', textAlign: TextAlign.left, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
         )
 
       ]
