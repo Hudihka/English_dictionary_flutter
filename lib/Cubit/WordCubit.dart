@@ -1,5 +1,6 @@
 import 'package:english_dictionary_flutter/API/LoadContent.dart';
 import 'package:english_dictionary_flutter/Data/DBProvider.dart';
+import 'package:english_dictionary_flutter/Data/DefaultUtils.dart';
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
 import 'package:flutter/material.dart';
@@ -47,38 +48,25 @@ class WordCubit extends Cubit<WordsState>{
   List<Word> _listWord = [];
   List<Word> _sertchWords = [];
 
-  bool _rusValue = true;
-  bool _hideTranslate = true;
+  // int  _rusValue = true;
+  // bool _hideTranslate = true;
 
   final DBProvider cash = DBProvider.db;
+  final DefaultUtils userDF = DefaultUtils.shared;
+
   final WordsState userState;
 
   WordCubit(this.userState, {@required this.themesID}) : super(WordsState());
 
 
-  Future<void> fetchContent() {
+  Future<void> fetchContent() async {
 
-    final listThemes = 
+    final index = await userDF.wayTranslate;
+    final hideTranslate = await userDF.hideTranslate;
 
+    _listWord = await cash.getWordsSorted(themesID, index == 0);
 
-
-
-
-
-    //показываем в начале пустой экран
-    // emit(userState.copyWith(listThemes: [], selectedTheme: [], allSelected: false, countWord: 0));
-
-    // await _themeProvider.loadContent();
-
-    // //грузим темы из памяти
-    // _listThemes = await cash.getAllThemes();
-
-    // var allCount = 0;
-    // for (var them in _listThemes){
-    //   allCount += them.listWord.length;
-    // }
-
-    // emit(userState.copyWith(listThemes: _listThemes, selectedTheme: [], allSelected: false, countWord: allCount));
+    emit(userState.copyWith(newWords: _listWord, newIndexSegment: index, newHideTranslate: hideTranslate));
   }
 
   // clearAll(){

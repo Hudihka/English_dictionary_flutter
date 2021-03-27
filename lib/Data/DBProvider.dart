@@ -84,7 +84,40 @@ Future<List<ThemeWords>> getThemes(List<String> listID) async {
   var box = await Hive.openBox<ThemeWords>('ThemeWords');
   List<ThemeWords> listThemes = box.values.toList();
 
-  return listThemes.where((element) => listID.contains(element.id));
+  return listThemes.where((element) => listID.contains(element.id)).toList();
+}
+
+//получение слов тем по id
+
+Future<List<Word>> getWordsSorted(List<String> listIDThemes, bool rusSorted) async {
+  List<Word> listWord = await _getWords(listIDThemes);
+
+  if (rusSorted){
+
+    listWord.sort((a, b){
+      return a.rusValue.toLowerCase().compareTo(b.rusValue.toLowerCase());
+    });
+
+  } else {
+
+    listWord.sort((a, b){
+      return a.engValue.toLowerCase().compareTo(b.engValue.toLowerCase());
+    });
+
+  }
+
+  return listWord;
+}
+
+Future<List<Word>> _getWords(List<String> listIDThemes) async {
+  List<ThemeWords> listThemes = await getThemes(listIDThemes);
+  List<Word> listWord = [];
+
+  for (var obj in listThemes){
+    listWord += obj.listWord;
+  }
+
+  return listWord;
 }
 
 

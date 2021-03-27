@@ -1,6 +1,7 @@
 import 'package:english_dictionary_flutter/Cubit/WordCubit.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
+import 'package:english_dictionary_flutter/Support/ScafoldLoad.dart';
 import 'package:english_dictionary_flutter/Views/CellWord.dart';
 import 'package:flutter/material.dart';
 import 'package:english_dictionary_flutter/Extension/String.dart';
@@ -30,9 +31,11 @@ class CrammingContent extends StatelessWidget {
   BuildContext _context;
   WordCubit _contentCubit;
 
-  List<Word> _dataArray = [];
+  List<Word> _dataArray;
   int _selectedIndexWay = 0;
   bool _hideWord = true;
+
+  String textSertch = "";
 
   @override
   Widget build(BuildContext context) {
@@ -45,15 +48,14 @@ class CrammingContent extends StatelessWidget {
     return BlocBuilder<WordCubit, WordsState>(builder: (context, state) {
       if (state is WordsState) {
 
-        _dataArray = state.listThemes ?? [];
-        _selectedList = state.selectedTheme ?? [];
-        _selectedAll = state.allSelected ?? false;
-        _countWord = state.countWord ?? 0;
+        _dataArray = state.words;
+        _selectedIndexWay = state.indexSegment ?? 0;
+        _hideWord = state.hideTranslate ?? true;
 
-        if (_dataArray.isEmpty){
-          return _scafoldEmptu;
+        if (_dataArray == null){
+          return ScafoldLoad();
         } else {
-          return _createScafold;
+          return _allContent;
         }
 
       }
@@ -61,30 +63,9 @@ class CrammingContent extends StatelessWidget {
   }
 
 
-
-
-  List<String> themesID;
-
-  BuildContext _context;
-  WordCubit _contentCubit;
-
-  List<Word> dataArray;
-  
-  bool _rusEngTranslate = true;
-  bool _hideTranslate = true;
-
-  String textSertch = "";
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _allContent,
-    );
-  }
-
   Widget get _allContent {
-    return Container(
+    return Scaffold(
+      body: Container(
       color: Colors.white,
       child: Column(
       children: [
@@ -97,6 +78,7 @@ class CrammingContent extends StatelessWidget {
         _listTV
       ],
     )
+    ),
     );
   }
 
@@ -196,7 +178,7 @@ class CrammingContent extends StatelessWidget {
 
     return MaterialSegmentedControl(
           children: _children,
-          selectionIndex: 0,
+          selectionIndex: _selectedIndexWay,
           borderColor: Colors.white,
           selectedColor: Colors.black,
           unselectedColor: Colors.white,
@@ -220,7 +202,7 @@ class CrammingContent extends StatelessWidget {
       children: [
         SizedBox(width: 10),
         Switch(
-            value: false,
+            value: _hideWord,
             onChanged: (value) {
               // setState(() {});
             },
@@ -245,7 +227,7 @@ class CrammingContent extends StatelessWidget {
       width: double.infinity,
       // constraints: BoxConstraints(maxHeight: double.infinity,),
       height: Const.hDevice - 148 - Const.statusBarHeight.toDouble(),
-      child: dataArray.isEmpty ? 
+      child: _dataArray.isEmpty ? 
 
       Center(
         child: Text("Очисти поиск.\n\nНет слов.",
@@ -255,11 +237,11 @@ class CrammingContent extends StatelessWidget {
       ) : 
       ListView.builder(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          itemCount: dataArray.length,
+          itemCount: _dataArray.length,
           itemBuilder: (context, index) {
-            Word word = dataArray[index];
+            Word word = _dataArray[index];
             
-            return CellWord(word: word, rusWay: _rusEngTranslate, hideTarnslate: false);
+            return CellWord(word: word, rusWay: _selectedIndexWay == 0, hideTarnslate: _hideWord);
 
       })
     );

@@ -181,7 +181,7 @@ class Lenta extends StatelessWidget {
 
     alert.lening = (){
 
-      List<String> listID = _selectedList.map((e) => e.id);
+      List<String> listID = _selectedList.map((e) => e.id).toList();
 
       final cramming = Cramming(themesID: listID);
 
