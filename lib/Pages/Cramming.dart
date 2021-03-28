@@ -119,9 +119,11 @@ class CrammingContent extends StatelessWidget {
   }
 
   TextField _getTextField() {
+
+    final controller = _emptyText ? TextEditingController(text: _textSertch) : null;
+
     return TextField(
-      // focusNode: _focusNode,
-      // obscureText: !isName,
+      controller: controller,
       style: TextStyle(fontSize: 18.0, color: Colors.black, fontWeight: FontWeight.w400),
       cursorColor: Colors.black,
       decoration: InputDecoration(
