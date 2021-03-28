@@ -2,6 +2,7 @@ import 'package:english_dictionary_flutter/Cubit/WordCubit.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
 import 'package:english_dictionary_flutter/Support/ScafoldLoad.dart';
+import 'package:english_dictionary_flutter/Views/CellWord.dart';
 import 'package:english_dictionary_flutter/Views/CellWordOpasity.dart';
 import 'package:flutter/material.dart';
 import 'package:english_dictionary_flutter/Extension/String.dart';

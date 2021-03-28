@@ -99,7 +99,18 @@ class _CellWordOpasityState extends State<CellWordOpasity> {
     );
   }
 
+  Widget get animatedContainer {
 
+    return AnimatedOpacity(
+      opacity: _visible ? 1.0 : 0.0,
+      duration: Duration(milliseconds: 500),
+      child: _containerFooter,
+      onEnd: (){
+        
+      },
+    );
+
+  }
 
 
 
@@ -125,32 +136,6 @@ class _CellWordOpasityState extends State<CellWordOpasity> {
         )
     );
   }
-
-  Container get _containerBlack {
-
-    String translate = widget.rusWay ? widget.word.engValue : widget.word.rusValue;
-    Color colorText = widget.hideTarnslate ? Const.clearColor : Colors.black;
-
-    final descr = widget.word.descript;
-    if (descr != ""){
-      translate = translate + "/n/n$descr";
-    }
-
-
-    return Container(
-      width: double.infinity,
-      child: Padding(
-          padding: EdgeInsets.only(left: 20, top: 7, right: 16, bottom: 10),
-          child: Text(translate,
-            textAlign: TextAlign.left,
-            style: TextStyle(color: colorText, fontSize: 23, fontWeight: FontWeight.w500),
-          ),
-        )
-    );
-  }
-
-  
-
 
 
 }
