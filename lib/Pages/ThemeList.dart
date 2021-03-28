@@ -95,6 +95,8 @@ class Lenta extends StatelessWidget {
     );
   }
 
+  
+
 
 
   Widget _allContent(){

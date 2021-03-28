@@ -35,7 +35,7 @@ class CrammingContent extends StatelessWidget {
   int _selectedIndexWay = 0;
   bool _hideWord = true;
 
-  String textSertch = "";
+  String _textSertch = "";
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +65,7 @@ class CrammingContent extends StatelessWidget {
 
   Widget get _allContent {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
       color: Colors.white,
       child: Column(
@@ -94,7 +95,7 @@ class CrammingContent extends StatelessWidget {
           width: Const.wDevice - 10 - 85,
           child: Container(
             decoration: new BoxDecoration(
-              color: "F2F2F2".getColor(alpha: 0.75),
+              color: "F2F2F2".getColor(alpha: 0.5),
               borderRadius: BorderRadius.circular(10),
             ),
             child: _getTextField()
@@ -141,7 +142,7 @@ class CrammingContent extends StatelessWidget {
       ),
       textAlign: TextAlign.left,
       onChanged: (str) {
-        textSertch = str;
+        _textSertch = str;
         _contentCubit.textSertch(str);
       },
       onSubmitted: (str) {
@@ -153,7 +154,7 @@ class CrammingContent extends StatelessWidget {
   }
 
   bool get _emptyText {
-    return textSertch == "";
+    return _textSertch == "";
   }
 
   //SEGMENT CONTROL
@@ -175,7 +176,7 @@ class CrammingContent extends StatelessWidget {
     return MaterialSegmentedControl(
           children: _children,
           selectionIndex: _selectedIndexWay,
-          borderColor: Colors.white,
+          borderColor: "F2F2F2".getColor(alpha: 0.5),
           selectedColor: Colors.black,
           unselectedColor: Colors.white,
           borderRadius: 10.0,
@@ -197,8 +198,15 @@ class CrammingContent extends StatelessWidget {
             onChanged: (value) {
               _contentCubit.switchAction(value);
             },
-            activeTrackColor: "F2F2F2".getColor(alpha: 0.75),
+            activeTrackColor: Colors.black.withAlpha(80),
             activeColor: Colors.black,
+            inactiveTrackColor: Colors.black.withAlpha(20),
+            inactiveThumbColor: Colors.black,
+            // focusColor: Colors.red,
+            // hoverColor: Colors.green,
+            // thumbColor: Colors.yellow,
+            
+          
           ),
         SizedBox(width: 5),
         Container(

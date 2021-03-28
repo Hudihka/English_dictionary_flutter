@@ -15,9 +15,13 @@ class CellWord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: hideTarnslate ? () {
+      // onTap: hideTarnslate ? () {
+      //   //показываем перевод
+      // } : null,
+      onTap: () {
+        print('--------------');
         //показываем перевод
-      } : null,
+      },
 
       child: Container(
         width: double.infinity,
@@ -59,7 +63,8 @@ class CellWord extends StatelessWidget {
 
         GestureDetector(
           onTap: () {
-            presedWord(word);
+            print('--------------1111111');
+            // presedWord(word);
           },
         child: Container(
           alignment: Alignment.topRight,

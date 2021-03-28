@@ -57,7 +57,7 @@ class WordCubit extends Cubit<WordsState>{
 
   int _indexTranslete = 0;
 
-  String text = "";
+  String _text = "";
 
   final DBProvider cash = DBProvider.db;
   final DefaultUtils userDF = DefaultUtils.shared;
@@ -72,7 +72,7 @@ class WordCubit extends Cubit<WordsState>{
     _indexTranslete = await userDF.wayTranslate;
     final hideTranslate = await userDF.hideTranslate;
 
-    _listWord = await cash.getWordsSorted(themesID, _indexTranslete == 0, text: text);
+    _listWord = await cash.getWordsSorted(themesID, _indexTranslete == 0, text: _text);
 
     emit(userState.copyWith(newWords: _listWord, newIndexSegment: _indexTranslete, newHideTranslate: hideTranslate));
   }
@@ -83,12 +83,15 @@ class WordCubit extends Cubit<WordsState>{
   }
 
   newWayTranslate(int newValue) async {
+    _text = "";
     await userDF.saveWayTranslate(newValue);
     await fetchContent();
   }
 
 
   textSertch(String text) {
+
+    _text = text;
 
     if (text == ""){
       emit(userState.copyWith(newWords: _listWord));
@@ -104,23 +107,12 @@ class WordCubit extends Cubit<WordsState>{
     emit(userState.copyWith(newWords: _sertchWords));
   }
 
-  // clearSertch(String text) {
-
-  //   if (text == ""){
-  //     emit(userState.copyWith(newWords: _listWord));
-  //     return;
-  //   }
-
-  //   if (_indexTranslete == 0){
-  //     _sertchWords = _listWord.where((element) => element.rusValue.contains(text)).toList();
-  //   } else {
-  //     _sertchWords = _listWord.where((element) => element.engValue.contains(text)).toList();
-  //   }
-
-  //   emit(userState.copyWith(newWords: _sertchWords));
-  // }
+  pressLikeButton(Word word){
 
 
+
+
+  }
 
 }
 
