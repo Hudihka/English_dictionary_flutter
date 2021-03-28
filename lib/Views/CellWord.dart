@@ -13,16 +13,7 @@ class CellWord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      // onTap: hideTarnslate ? () {
-      //   //показываем перевод
-      // } : null,
-      onTap: () {
-        print('--------------');
-        //показываем перевод
-      },
-
-      child: Container(
+    return Container(
         width: double.infinity,
         color: Colors.white, 
         child: Column(
@@ -31,8 +22,7 @@ class CellWord extends StatelessWidget {
             _containerFooter
           ]
         )
-      ),
-    );
+      );
   }
 
 

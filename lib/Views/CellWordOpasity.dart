@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
@@ -23,16 +25,16 @@ class CellWordOpasity extends StatefulWidget {
 
 class _CellWordOpasityState extends State<CellWordOpasity> {
 
+  bool _showText = false; //показаны кнопки или нет
+  Timer _timerClearButton;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: hideTarnslate ? () {
-      //   //показываем перевод
-      // } : null,
       onTap: () {
-        print('--------------');
-        //показываем перевод
+        _showText = !_showText;
+        _actionTimer();
+        setState(() {});
       },
 
       child: Container(
@@ -41,7 +43,7 @@ class _CellWordOpasityState extends State<CellWordOpasity> {
         child: Column(
           children: [
             _hederCell,
-            _containerFooter
+            _animatedContainer
           ]
         )
       ),
@@ -76,7 +78,6 @@ class _CellWordOpasityState extends State<CellWordOpasity> {
         GestureDetector(
           onTap: () {
             print('--------------1111111');
-            // presedWord(word);
           },
         child: Container(
           alignment: Alignment.topRight,
@@ -99,25 +100,23 @@ class _CellWordOpasityState extends State<CellWordOpasity> {
     );
   }
 
-  Widget get animatedContainer {
+  Widget get _animatedContainer {
 
     return AnimatedOpacity(
-      opacity: _visible ? 1.0 : 0.0,
-      duration: Duration(milliseconds: 500),
+      opacity: _showText ? 1 : 0,
+      duration: Duration(milliseconds: 300),
       child: _containerFooter,
-      onEnd: (){
-        
-      },
     );
 
   }
 
 
 
+
   Container get _containerFooter {
 
     String translate = widget.rusWay ? widget.word.engValue : widget.word.rusValue;
-    Color colorText = widget.hideTarnslate ? Const.clearColor : Colors.black;
+    Color colorText = Colors.black;
 
     final descr = widget.word.descript;
     if (descr != ""){
@@ -135,6 +134,33 @@ class _CellWordOpasityState extends State<CellWordOpasity> {
           ),
         )
     );
+  }
+
+
+  //ТАЙМЕР
+
+    //ТАЙМЕР
+
+  _actionTimer(){
+
+    if (_timerClearButton != null){
+      _timerClearButton.cancel();
+    }
+
+      if (_showText){//и если кнопки в данный момет показаны
+
+        _timerClearButton = Timer(Duration(milliseconds: 1500), (){
+          if (_showText){ //кнопки до сих пор видно
+            _showText = false;
+            setState(() {});
+          }
+        });
+
+      }
+    
+
+
+
   }
 
 

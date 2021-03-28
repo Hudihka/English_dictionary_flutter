@@ -18,7 +18,7 @@ class Time {
         {"engValue" : "often", "rusValue" : "часто", "descript" : ""},
         {"engValue" : "usually", "rusValue" : "обычно", "descript" : ""},
         {"engValue" : "always", "rusValue" : "всегда", "descript" : ""},
-        {"engValue" : "every", "rusValue" : " каждый", "descript" : ""},
+        {"engValue" : "every", "rusValue" : "каждый", "descript" : ""},
         {"engValue" : "early", "rusValue" : "рано", "descript" : ""},
         {"engValue" : "late", "rusValue" : "поздно", "descript" : ""},
         {"engValue" : "tired", "rusValue" : "уставший", "descript" : ""},
