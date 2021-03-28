@@ -4,25 +4,24 @@ import 'package:english_dictionary_flutter/Support/Const.dart';
 import 'package:flutter/material.dart';
 
 
-class CellWord extends StatefulWidget {
+class CellWordOpasity extends StatefulWidget {
 
   Word word;
   bool rusWay;
-  bool hideTarnslate;
 
   Function(Word) presedWord;
 
-  CellWord({@required this.word, @required this.rusWay, @required this.hideTarnslate});
+  CellWordOpasity({@required this.word, @required this.rusWay});
 
 
 
   @override
-  _CellWordState createState() => _CellWordState();
+  _CellWordOpasityState createState() => _CellWordOpasityState();
 }
 
 
 
-class _CellWordState extends State<CellWord> {
+class _CellWordOpasityState extends State<CellWordOpasity> {
 
 
   @override

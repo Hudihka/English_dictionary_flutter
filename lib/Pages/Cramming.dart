@@ -2,7 +2,7 @@ import 'package:english_dictionary_flutter/Cubit/WordCubit.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
 import 'package:english_dictionary_flutter/Support/ScafoldLoad.dart';
-import 'package:english_dictionary_flutter/Views/CellWord.dart';
+import 'package:english_dictionary_flutter/Views/CellWordOpasity.dart';
 import 'package:flutter/material.dart';
 import 'package:english_dictionary_flutter/Extension/String.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -251,8 +251,13 @@ class CrammingContent extends StatelessWidget {
           itemCount: _dataArray.length,
           itemBuilder: (context, index) {
             Word word = _dataArray[index];
+
+            if (_hideWord){
+              return CellWordOpasity(word: word, rusWay: _selectedIndexWay == 0);
+            } else {
+              return CellWord(word: word, rusWay: _selectedIndexWay == 0);
+            }
             
-            return CellWord(word: word, rusWay: _selectedIndexWay == 0, hideTarnslate: _hideWord);
 
       })
     );
