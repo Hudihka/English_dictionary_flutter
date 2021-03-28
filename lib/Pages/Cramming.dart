@@ -51,6 +51,7 @@ class CrammingContent extends StatelessWidget {
         _dataArray = state.words;
         _selectedIndexWay = state.indexSegment ?? 0;
         _hideWord = state.hideTranslate ?? true;
+        _textSertch = state.textSertch;
 
         if (_dataArray == null){
           return ScafoldLoad();
@@ -65,21 +66,18 @@ class CrammingContent extends StatelessWidget {
 
   Widget get _allContent {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      body: Container(
-      color: Colors.white,
-      child: Column(
-      children: [
+      body: Column(
+        children: [
         SizedBox(height: 10 + Const.statusBarHeight.toDouble(),),
         _navigBar,
         SizedBox(height: 10),
         _segmentControll,
         SizedBox(height: 5),
         _switchContent,
-        _listTV
-      ],
-    )
-    ),
+        _listTV]
+            )
     );
   }
 
@@ -108,10 +106,11 @@ class CrammingContent extends StatelessWidget {
             width: 80,
             child: Center(
               child: Text('  Очистить  ', 
-              style: TextStyle(color: _emptyText ? Const.lightGrey : Colors.black, ),),
+              style: TextStyle(color: _emptyText ? "F2F2F2".getColor(alpha: 0.7) : Colors.black, ),),
             ),
           ),
           onTap: _emptyText ? null : () {
+            _hideKey();
             _contentCubit.textSertch("");
           },
         )
@@ -132,6 +131,9 @@ class CrammingContent extends StatelessWidget {
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Const.clearColor),
         ),
+        // labelText: "vhvghvghvghv",
+        // counterText: "njknjjnn",
+        // semanticCounterText: 'hhjjjjbj',
         hintText: "Поиск",
         hintStyle: TextStyle(
             fontSize: 18.0,
@@ -146,11 +148,19 @@ class CrammingContent extends StatelessWidget {
         _contentCubit.textSertch(str);
       },
       onSubmitted: (str) {
-        // _contentCubit.textSertch(str);
+        _contentCubit.textSertch(str);
         //если пользователь нажал ВВод
         
       },
     );
+  }
+
+    _hideKey(){
+      FocusScopeNode currentFocus = FocusScope.of(_context);
+
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
   }
 
   bool get _emptyText {

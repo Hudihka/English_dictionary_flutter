@@ -59,6 +59,8 @@ class WordCubit extends Cubit<WordsState>{
 
   String _text = "";
 
+  bool firstLoad = false;
+
   final DBProvider cash = DBProvider.db;
   final DefaultUtils userDF = DefaultUtils.shared;
 
@@ -69,12 +71,21 @@ class WordCubit extends Cubit<WordsState>{
 
   Future<void> fetchContent() async {
 
+    if (firstLoad){
+      return;
+    }
+
+    firstLoad = true;
+
     _indexTranslete = await userDF.wayTranslate;
     final hideTranslate = await userDF.hideTranslate;
 
     _listWord = await cash.getWordsSorted(themesID, _indexTranslete == 0, text: _text);
 
-    emit(userState.copyWith(newWords: _listWord, newIndexSegment: _indexTranslete, newHideTranslate: hideTranslate));
+    emit(userState.copyWith(newWords: _listWord, 
+    newIndexSegment: _indexTranslete, 
+    newHideTranslate: hideTranslate, 
+    newTextSertch: _text));
   }
 
   switchAction(bool newValue) async {
@@ -94,7 +105,7 @@ class WordCubit extends Cubit<WordsState>{
     _text = text;
 
     if (text == ""){
-      emit(userState.copyWith(newWords: _listWord));
+      emit(userState.copyWith(newWords: _listWord, newTextSertch: _text));
       return;
     }
 
@@ -104,7 +115,7 @@ class WordCubit extends Cubit<WordsState>{
       _sertchWords = _listWord.where((element) => element.engValue.contains(text)).toList();
     }
 
-    emit(userState.copyWith(newWords: _sertchWords));
+    emit(userState.copyWith(newWords: _sertchWords, newTextSertch: _text));
   }
 
   pressLikeButton(Word word){
