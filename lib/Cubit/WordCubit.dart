@@ -58,8 +58,8 @@ class WordCubit extends Cubit<WordsState>{
   int _indexTranslete = 0;
 
   String _text = "";
-
   bool firstLoad = false;
+  
 
   final DBProvider cash = DBProvider.db;
   final DefaultUtils userDF = DefaultUtils.shared;
@@ -94,6 +94,7 @@ class WordCubit extends Cubit<WordsState>{
   }
 
   newWayTranslate(int newValue) async {
+    firstLoad = false;
     _text = "";
     await userDF.saveWayTranslate(newValue);
     await fetchContent();

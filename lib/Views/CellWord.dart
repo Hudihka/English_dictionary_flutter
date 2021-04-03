@@ -1,3 +1,4 @@
+import 'package:english_dictionary_flutter/Cubit/SingltonCubit.dart';
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
@@ -52,8 +53,7 @@ class CellWord extends StatelessWidget {
 
         GestureDetector(
           onTap: () {
-            print('--------------1111111');
-            // presedWord(word);
+            SingltonsCubit.shared.getWodrCubit.pressLikeButton(word);
           },
         child: Container(
           alignment: Alignment.topRight,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:english_dictionary_flutter/Cubit/SingltonCubit.dart';
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
@@ -10,8 +11,6 @@ class CellWordOpasity extends StatefulWidget {
 
   Word word;
   bool rusWay;
-
-  Function(Word) presedWord;
 
   CellWordOpasity({@required this.word, @required this.rusWay});
 
@@ -77,7 +76,7 @@ class _CellWordOpasityState extends State<CellWordOpasity> {
 
         GestureDetector(
           onTap: () {
-            print('--------------1111111');
+            SingltonsCubit.shared.getWodrCubit.pressLikeButton(widget.word);
           },
         child: Container(
           alignment: Alignment.topRight,

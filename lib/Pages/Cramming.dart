@@ -1,3 +1,4 @@
+import 'package:english_dictionary_flutter/Cubit/SingltonCubit.dart';
 import 'package:english_dictionary_flutter/Cubit/WordCubit.dart';
 import 'package:english_dictionary_flutter/Models/Word.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
@@ -45,6 +46,8 @@ class CrammingContent extends StatelessWidget {
 
     _contentCubit = context.read();
     _contentCubit.fetchContent();
+
+    SingltonsCubit.shared.saveWordCubit(_contentCubit);
 
     return BlocBuilder<WordCubit, WordsState>(builder: (context, state) {
       if (state is WordsState) {

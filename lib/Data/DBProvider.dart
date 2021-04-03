@@ -129,6 +129,20 @@ Future<List<Word>> _getWords(List<String> listIDThemes) async {
   return listWord;
 }
 
+/////// Лайк/дизлайк
+///
+
+// _likeButton(Word word) async {
+//   List<ThemeWords> listThemes = await getThemes(listIDThemes);
+//   List<Word> listWord = [];
+
+//   for (var obj in listThemes){
+//     listWord += obj.listWord;
+//   }
+
+//   return listWord;
+// }
+
 
 
 /////////////////////////////  USER

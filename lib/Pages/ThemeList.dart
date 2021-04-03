@@ -1,4 +1,4 @@
-import 'package:english_dictionary_flutter/Cubit/SingltonThemeCubit.dart';
+import 'package:english_dictionary_flutter/Cubit/SingltonCubit.dart';
 import 'package:english_dictionary_flutter/Pages/Cramming.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
 import 'package:english_dictionary_flutter/Support/ScafoldLoad.dart';
@@ -44,7 +44,7 @@ class Lenta extends StatelessWidget {
     _contentCubit = context.read();
     _contentCubit.fetchContent();
 
-    SingltonThemeCubit.shared.saveThemeCubit(_contentCubit);
+    SingltonsCubit.shared.saveThemeCubit(_contentCubit);
 
     return BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
       if (state is ThemeState) {
