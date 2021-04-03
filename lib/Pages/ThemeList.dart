@@ -1,7 +1,9 @@
+import 'package:english_dictionary_flutter/Cubit/SingltonThemeCubit.dart';
 import 'package:english_dictionary_flutter/Pages/Cramming.dart';
 import 'package:english_dictionary_flutter/Support/Const.dart';
 import 'package:english_dictionary_flutter/Support/ScafoldLoad.dart';
 import 'package:english_dictionary_flutter/Views/AlertWay.dart';
+import 'package:english_dictionary_flutter/Views/BBItem.dart';
 import 'package:english_dictionary_flutter/Views/CellTheme.dart';
 import 'package:english_dictionary_flutter/Views/HederThemes.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +44,8 @@ class Lenta extends StatelessWidget {
     _contentCubit = context.read();
     _contentCubit.fetchContent();
 
+    SingltonThemeCubit.shared.saveThemeCubit(_contentCubit);
+
     return BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
       if (state is ThemeState) {
 
@@ -65,42 +69,42 @@ class Lenta extends StatelessWidget {
   Scaffold get _createScafold {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: _appBar,
         body: _allContent(),
       );
   }
 
-    Widget get _appBar {
+  // Widget get _appBar {
 
-      final empty = _selectedList.isEmpty;
+  //     final empty = _selectedList.isEmpty;
 
 
-    return AppBar(
-          shadowColor: Const.clearColor,
-          backgroundColor: Colors.white,
-          leading: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          child: Container(
-            height: 25,
-            width: 60,
-            child: Center(
-              child: Text('   Сброс', 
-              style: TextStyle(color: empty? Const.lightGrey : Colors.black, ),),
-            ),
-          ),
-          onTap: empty ? null : () {
-            _contentCubit.clearAll();
-          },
-        ),
-    );
-  }
+  //   return AppBar(
+  //         shadowColor: Const.clearColor,
+  //         backgroundColor: Colors.white,
+  //         leading: GestureDetector(
+  //         behavior: HitTestBehavior.translucent,
+  //         child: Container(
+  //           height: 25,
+  //           width: 60,
+  //           child: Center(
+  //             child: Text('   Сброс', 
+  //             style: TextStyle(color: empty? Const.lightGrey : Colors.black, ),),
+  //           ),
+  //         ),
+  //         onTap: empty ? null : () {
+  //           _contentCubit.clearAll();
+  //         },
+  //       ),
+  //   );
+  // }
 
   
 
 
 
   Widget _allContent(){
-    return Container(
+
+    List<Widget> baseList = [Container(
       width: double.infinity,
       height: double.infinity,
       child: Column(
@@ -110,8 +114,38 @@ class Lenta extends StatelessWidget {
         _createButton()
       ],
     )
-    );
+    )];
+
+
+    if (_selectedList.isNotEmpty){
+      baseList.add(_buttonClear);
+    }
+
+
+    return Stack(children: baseList);
   }
+
+
+  Widget get _buttonClear{
+
+      return  Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: EdgeInsets.only(top: Const.statusBarHeight + 5, left: 15, bottom: 0),
+            child: Container(
+              height: 50,
+              width: 100,
+              child: BBItem(shadow: true, text: 'Сброс', action: (){
+                 _contentCubit.clearAll();
+            }),
+            ),
+
+          ),
+        );
+
+
+  }
+
 
 
 
@@ -120,7 +154,7 @@ class Lenta extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: Const.hDevice - 64 - 83,
+      height: Const.hDevice - 64,
       child: ListView.builder(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           itemCount: _dataArray.length + 1,

@@ -20,6 +20,11 @@ class HederTheme extends StatelessWidget {
       // height: 100,
       child: Column(
         children: [
+          Container(
+            width: double.infinity,
+            height: Const.fullHeightNB / 2,
+            color: Colors.white,
+          ),
           _getWidgetHEderAndFooter('Всего слов: $countWord'),
           Container(
             height: 80,

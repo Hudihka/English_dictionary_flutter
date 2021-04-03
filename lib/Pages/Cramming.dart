@@ -73,7 +73,7 @@ class CrammingContent extends StatelessWidget {
         children: [
         SizedBox(height: 10 + Const.statusBarHeight.toDouble(),),
         _navigBar,
-        SizedBox(height: 10),
+        SizedBox(height: 9),
         _segmentControll,
         SizedBox(height: 5),
         _switchContent,
