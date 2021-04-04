@@ -142,21 +142,21 @@ likeButton(Word word) async {
   }
 
   var box = await Hive.openBox<Word>('Word');
-  print('--------------------');
+  // print('--------------------');
   final index = box.values.toList().indexWhere((element) => element.id == word.id);
-  print('--------------------++$index');
+  // print('--------------------++$index');
   box.putAt(index, word);
 
-  print('------++++');
-  var box2 = await Hive.openBox<Word>('Word');
-  final listTest = box2.values.toList();
-  for (var obj in listTest){
+  // print('------++++');
+  // var box2 = await Hive.openBox<Word>('Word');
+  // final listTest = box2.values.toList();
+  // for (var obj in listTest){
 
-    final rus = obj.rusValue;
-    final favorit = obj.favorit;
-    print('rusValue $rus');
-    print('rusValue $favorit');
-  }
+  //   final rus = obj.rusValue;
+  //   final favorit = obj.favorit;
+  //   print('rusValue $rus');
+  //   print('rusValue $favorit');
+  // }
 
 
 }

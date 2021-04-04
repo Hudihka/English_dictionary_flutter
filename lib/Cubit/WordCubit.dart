@@ -123,7 +123,7 @@ class WordCubit extends Cubit<WordsState>{
   pressLikeButton(Word word) async {
     await DBProvider.db.likeButton(word);
     textSertch(_text);
-    SingltonsCubit.shared.getThemeCubit.fetchContent();
+    SingltonsCubit.shared.getThemeCubit.reloadFavorit();
   }
 
 }

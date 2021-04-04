@@ -74,7 +74,7 @@ class ThemeCubit extends Cubit<ThemeState>{
   }
 
   reloadFavorit(){
-    
+    emit(userState.copyWith(listThemes: _listThemes));
   }
 
   clearAll(){
