@@ -41,15 +41,15 @@ class Word {
                 theme: theme);
   }
 
-  static List<Word> fromListOfMap(List<dynamic> data, String theme) {
-    List<Word> wordLists = List<Word>();
+  // static List<Word> fromListOfMap(List<dynamic> data, String theme) {
+  //   List<Word> wordLists = List<Word>();
     
-    data.forEach((element) {
-      wordLists.add(Word.fromJson(element, theme));
-    });
+  //   data.forEach((element) {
+  //     wordLists.add(Word.fromJson(element, theme));
+  //   });
 
-    return wordLists;
-  }
+  //   return wordLists;
+  // }
 
 }
 

@@ -58,9 +58,12 @@ class ThemeCubit extends Cubit<ThemeState>{
 
   Future<void> fetchContent() async {
     //показываем в начале пустой экран
+
+
     emit(userState.copyWith(listThemes: [], selectedTheme: [], allSelected: false, countWord: 0));
 
-    await _themeProvider.loadContent();
+    final ids = await cash.idsWord;
+    await _themeProvider.loadContent(ids);
 
     //грузим темы из памяти
     _listThemes = await cash.getAllThemes();

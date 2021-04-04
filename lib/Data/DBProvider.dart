@@ -161,6 +161,14 @@ likeButton(Word word) async {
 
 }
 
+Future<List<String>> get idsWord async {
+  final box = await Hive.openBox<Word>('Word');
+  final ids = box.values.toList().map((e) => e.id).toList();
+
+  return ids ?? [];
+}
+
+
 
 
 /////////////////////////////  USER
