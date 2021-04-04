@@ -66,7 +66,7 @@ class CellTheme extends StatelessWidget {
       ),
     ];
 
-    if (coutnFavorite != 0){
+  if (coutnFavorite != 0){
 
       List<Widget> listWidget2 = [
       Container(
@@ -94,6 +94,8 @@ class CellTheme extends StatelessWidget {
     listWidget = listWidget + listWidget2;
     return Row(children: listWidget);
   }
+
+  return Row(children: listWidget);
 
 }
 

@@ -132,16 +132,34 @@ Future<List<Word>> _getWords(List<String> listIDThemes) async {
 /////// Лайк/дизлайк
 ///
 
-// _likeButton(Word word) async {
-//   List<ThemeWords> listThemes = await getThemes(listIDThemes);
-//   List<Word> listWord = [];
+likeButton(Word word) async {
 
-//   for (var obj in listThemes){
-//     listWord += obj.listWord;
-//   }
 
-//   return listWord;
-// }
+  if (word.favorit == null){
+    word.favorit = true;
+  } else {
+    word.favorit = !word.favorit;
+  }
+
+  var box = await Hive.openBox<Word>('Word');
+  print('--------------------');
+  final index = box.values.toList().indexWhere((element) => element.id == word.id);
+  print('--------------------++$index');
+  box.putAt(index, word);
+
+  print('------++++');
+  var box2 = await Hive.openBox<Word>('Word');
+  final listTest = box2.values.toList();
+  for (var obj in listTest){
+
+    final rus = obj.rusValue;
+    final favorit = obj.favorit;
+    print('rusValue $rus');
+    print('rusValue $favorit');
+  }
+
+
+}
 
 
 

@@ -1,4 +1,5 @@
 import 'package:english_dictionary_flutter/API/LoadContent.dart';
+import 'package:english_dictionary_flutter/Cubit/SingltonCubit.dart';
 import 'package:english_dictionary_flutter/Data/DBProvider.dart';
 import 'package:english_dictionary_flutter/Data/DefaultUtils.dart';
 import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
@@ -119,11 +120,10 @@ class WordCubit extends Cubit<WordsState>{
     emit(userState.copyWith(newWords: _sertchWords, newTextSertch: _text));
   }
 
-  pressLikeButton(Word word){
-
-
-
-
+  pressLikeButton(Word word) async {
+    await DBProvider.db.likeButton(word);
+    textSertch(_text);
+    SingltonsCubit.shared.getThemeCubit.fetchContent();
   }
 
 }

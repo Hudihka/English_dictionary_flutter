@@ -30,7 +30,7 @@ class ThemeWords extends HiveObject {
   }
 
   int get countFavorit{
-    final listFavor = listWord.map((e) => e.favorit);
+    final listFavor = listWord.where((element) => element.favorit == true);
     return listFavor.length;
   }
 

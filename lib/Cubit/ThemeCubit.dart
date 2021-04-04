@@ -73,6 +73,10 @@ class ThemeCubit extends Cubit<ThemeState>{
     emit(userState.copyWith(listThemes: _listThemes, selectedTheme: [], allSelected: false, countWord: allCount));
   }
 
+  reloadFavorit(){
+    
+  }
+
   clearAll(){
     _selectedTheme = [];
     _allSelected = false;
