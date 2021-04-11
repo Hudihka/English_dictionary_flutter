@@ -38,6 +38,7 @@ export 'package:english_dictionary_flutter/Models/ThemeWords.dart';
 export 'package:english_dictionary_flutter/Models/Word.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:english_dictionary_flutter/Cubit/SingltonCubit.dart';
+export 'package:english_dictionary_flutter/Cubit/TestSelectedCubit.dart';
 export 'package:english_dictionary_flutter/Cubit/WordCubit.dart';
 export 'package:english_dictionary_flutter/Models/Word.dart';
 export 'package:english_dictionary_flutter/Support/Const.dart';

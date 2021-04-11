@@ -107,6 +107,8 @@ Future<List<ThemeWords>> getThemes(List<String> listID) async {
 Future<List<Word>> getWordsSorted(List<String> listIDThemes, bool rusSorted, {@required String text}) async {
   List<Word> listWord = await _getWords(listIDThemes);
 
+if (rusSorted != null){
+
   if (rusSorted){
 
     listWord.sort((a, b){
@@ -120,6 +122,7 @@ Future<List<Word>> getWordsSorted(List<String> listIDThemes, bool rusSorted, {@r
     });
 
   }
+}
 
     if (text != ""){
       if (rusSorted){

@@ -49,5 +49,11 @@ class Word {
     return wordLists;
   }
 
+  static bool isEqu(Word word1, Word word2){
+    return word1.id == word2.id;
+  }
+
+
+
 }
 

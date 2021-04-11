@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
 
     ThemeCubit themeCubit = ThemeCubit(ThemeState());
     WordCubit exploreCubit = WordCubit(WordsState());
+    TestSelectedCubit testSelectedCubit = TestSelectedCubit(TestSelectedState())
 
     @override
     Widget build(BuildContext context) {
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<WordCubit>(
             create: (context) => exploreCubit,
+          ),
+          BlocProvider<TestSelectedCubit>(
+            create: (context) => testSelectedCubit,
           ),
         ],
         child:  MaterialApp(
