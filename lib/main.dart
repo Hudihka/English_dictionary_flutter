@@ -10,12 +10,42 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+// class MyApp extends StatelessWidget {
   
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ThemeList(),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: ThemeList(),
+//     );
+//   }
+// }
+
+
+
+class MyApp extends StatelessWidget {
+
+    ThemeCubit themeCubit = ThemeCubit(ThemeState());
+    WordCubit exploreCubit = WordCubit(WordsState(), themesID: []);
+
+    @override
+    Widget build(BuildContext context) {
+  
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider<ThemeCubit>(
+            create: (context) => themeCubit..fetchContent(),
+          ),
+          BlocProvider<WordCubit>(
+            create: (context) => exploreCubit,
+          ),
+        ],
+        child:  MaterialApp(
+          home: Lenta(),
+        ),
+      );
+    }
+  
+  
 }
+
+ 

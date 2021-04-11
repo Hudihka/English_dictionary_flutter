@@ -1,19 +1,7 @@
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 
-class ThemeList extends StatelessWidget {
-  final state = ThemeState();
 
-  @override
-  Widget build(BuildContext context) {
-    Const.setSize(context);
-
-    return BlocProvider<ThemeCubit>(
-      create: (context) => ThemeCubit(state),
-      child: Lenta()
-    );
-  }
-}
 
 class Lenta extends StatelessWidget {
 
@@ -28,10 +16,11 @@ class Lenta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //говорит о том, что грузим юзеров при запуске
+    //
+    Const.setSize(context);
     _context = context;
 
     _contentCubit = context.read();
-    _contentCubit.fetchContent();
 
     SingltonsCubit.shared.saveThemeCubit(_contentCubit);
 
