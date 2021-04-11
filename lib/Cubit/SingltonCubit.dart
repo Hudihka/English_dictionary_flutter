@@ -1,8 +1,6 @@
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
 
-import 'ThemeCubit.dart';
-import 'WordCubit.dart';
+
+import 'package:english_dictionary_flutter/export.dart';
 
 
 class SingltonsCubit{

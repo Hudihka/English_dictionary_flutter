@@ -1,10 +1,5 @@
 
-
-import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
-import 'package:english_dictionary_flutter/Models/Word.dart';
-import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
+import 'package:english_dictionary_flutter/export.dart';
 
 class DBProvider {
 
@@ -33,13 +28,7 @@ Future<void> newThemeList(List<ThemeWords> themes) async {
   await Future.forEach(themes, (e) async {
     allThemes[e.id] = e;
     _newWordList(e.listWord);
-    // newId.add(e.id);
   });
-
-  // for (var e in themes){
-  //   allThemes[e.id] = e;
-  //   // _newWordList(e.listWord);
-  // }
 
   box.putAll(allThemes);
 
@@ -50,16 +39,25 @@ _newWordList(List<Word> words) async {
   var box = await Hive.openBox<Word>('Word');
 
   Map<String, Word> allWord = {};
+
   Set<String> newId = {};
 
+  Set<dynamic> oldID = box.keys.toSet();
+
   for (var e in words){
-    allWord[e.id] = e;
-    newId.add(e.id);
+    ///если Уже есть обьект с 
+    ///таким ид то мы не добавляем его
+    final id = e.id;
+    if (oldID.contains(id) == false){
+        allWord[id] = e;
+        newId.add(id);
+    }
+
+
   }
 
   box.putAll(allWord);
 
-  Set<dynamic> oldID = box.keys.toSet();
   Set<dynamic> deleteID = oldID.difference(newId);//те что надо удалить
 
   if (deleteID.isNotEmpty) {

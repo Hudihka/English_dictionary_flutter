@@ -1,16 +1,5 @@
-import 'package:english_dictionary_flutter/Cubit/SingltonCubit.dart';
-import 'package:english_dictionary_flutter/Pages/Cramming.dart';
-import 'package:english_dictionary_flutter/Support/Const.dart';
-import 'package:english_dictionary_flutter/Support/ScafoldLoad.dart';
-import 'package:english_dictionary_flutter/Views/AlertWay.dart';
-import 'package:english_dictionary_flutter/Views/BBItem.dart';
-import 'package:english_dictionary_flutter/Views/CellTheme.dart';
-import 'package:english_dictionary_flutter/Views/HederThemes.dart';
+import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../Cubit/ThemeCubit.dart';
-import '../Models/ThemeWords.dart';
-
 
 class ThemeList extends StatelessWidget {
   final state = ThemeState();

@@ -1,6 +1,5 @@
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
-import 'package:flutter/material.dart';
+
+import 'package:english_dictionary_flutter/export.dart';
 
 extension ExtensionString on String {
   String get generateMd5 {

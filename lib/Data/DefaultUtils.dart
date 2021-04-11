@@ -1,5 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
+import 'package:english_dictionary_flutter/export.dart';
 
 enum _EnumKeys{
   wayTranslate,

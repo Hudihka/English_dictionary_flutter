@@ -1,6 +1,4 @@
-
-import 'package:hive/hive.dart';
-import 'package:english_dictionary_flutter/Extension/String.dart';
+import 'package:english_dictionary_flutter/export.dart';
 part 'Word.g.dart';
 
 
