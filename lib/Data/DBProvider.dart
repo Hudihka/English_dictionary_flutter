@@ -7,17 +7,28 @@ class DBProvider {
 
   static final DBProvider db = DBProvider._();
 
+  List<String> listFavorit = []; //при инициализации мы выковыриваем те слова, что фаворит
+
 Future<void> initDB() async {
   await Hive.initFlutter();
   Hive.openBox('name_box');
   Hive.registerAdapter(ThemeWordsAdapter()); 
   Hive.registerAdapter(WordAdapter()); 
 
-
-  // await Hive.initFlutter();
-  // Hive.registerAdapter(UserAdapter());
-  // await Hive.openBox<Todo>(HiveBoxes.todo);
 }
+
+Future<void> initListFavoriteWord() async {
+  var boxWord = await Hive.openBox<Word>('Word');
+
+
+  listFavorit = boxWord.values.toList().map((element){
+    if (element.favorit){
+      return element.id;
+    }
+  }).toList();
+
+}
+
 
 
 Future<void> newThemeList(List<ThemeWords> themes) async {
@@ -44,17 +55,22 @@ _newWordList(List<Word> words) async {
 
   Set<dynamic> oldID = box.keys.toSet();
 
+  // await favoriteCheck(index: 0);
+
   for (var e in words){
     ///если Уже есть обьект с 
     ///таким ид то мы не добавляем его
-    final id = e.id;
-    if (oldID.contains(id) == false){
-        allWord[id] = e;
-        newId.add(id);
-    }
+    ///
+    final IDword = e.id;
+    e.favorit = listFavorit.contains(IDword);
 
-
+    allWord[IDword] = e;
+    newId.add(IDword);
+    
   }
+
+  // await favoriteCheck(index: 1);
+
 
   box.putAll(allWord);
 
@@ -65,6 +81,7 @@ _newWordList(List<Word> words) async {
   }
 
 }
+
 
 Future<List<ThemeWords>> getAllThemes() async {
   var box = await Hive.openBox<ThemeWords>('ThemeWords');
@@ -140,24 +157,38 @@ likeButton(Word word) async {
   }
 
   var box = await Hive.openBox<Word>('Word');
-  // print('--------------------');
+
   final index = box.values.toList().indexWhere((element) => element.id == word.id);
-  // print('--------------------++$index');
-  box.putAt(index, word);
 
-  // print('------++++');
-  // var box2 = await Hive.openBox<Word>('Word');
-  // final listTest = box2.values.toList();
-  // for (var obj in listTest){
+  if (index == -1){
 
-  //   final rus = obj.rusValue;
-  //   final favorit = obj.favorit;
-  //   print('rusValue $rus');
-  //   print('rusValue $favorit');
-  // }
+    Map<String, Word> wordsMap = {word.id : word};
+    box.putAll(wordsMap);
+  } else {
+    box.putAt(index, word);
+  }
+  
+
+  // favoriteCheck(index: 0);
+
+
 
 
 }
+
+
+// void favoriteCheck({@required int index}) async {
+
+//   print('start -------------------------- $index');
+
+//   var box = await Hive.openBox<Word>('Word');
+//   final idTest = '56276b744191c78b9f7e0eb3cea20308';
+//   final word = box.values.toList().indexWhere((element) => element.id == idTest);
+
+//   print('-------------------------- $index');
+//   // print(word.favorit);
+
+// }
 
 
 
