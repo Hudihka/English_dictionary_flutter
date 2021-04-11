@@ -60,7 +60,7 @@ class WordCubit extends Cubit<WordsState>{
 
   final WordsState userState;
 
-  WordCubit(this.userState, {@required this.themesID}) : super(WordsState());
+  WordCubit(this.userState) : super(WordsState());
 
 
   Future<void> fetchContent() async {

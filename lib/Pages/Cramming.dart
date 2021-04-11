@@ -4,23 +4,9 @@ import 'package:flutter/material.dart';
 
 
 class Cramming extends StatelessWidget {
-  final state = WordsState();
+
   List<String> themesID;
-
   Cramming({@required this.themesID});
-
-  @override
-  Widget build(BuildContext context) {
-    Const.setSize(context);
-
-    return BlocProvider<WordCubit>(
-      create: (context) => WordCubit(state, themesID: themesID),
-      child: CrammingContent()
-    );
-  }
-}
-
-class CrammingContent extends StatelessWidget {
 
   BuildContext _context;
   WordCubit _contentCubit;
@@ -37,6 +23,9 @@ class CrammingContent extends StatelessWidget {
     _context = context;
 
     _contentCubit = context.read();
+    _contentCubit.themesID = themesID;
+
+
     _contentCubit.fetchContent();
 
     SingltonsCubit.shared.saveWordCubit(_contentCubit);

@@ -25,7 +25,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
 
     ThemeCubit themeCubit = ThemeCubit(ThemeState());
-    WordCubit exploreCubit = WordCubit(WordsState(), themesID: []);
+    WordCubit exploreCubit = WordCubit(WordsState());
 
     @override
     Widget build(BuildContext context) {
