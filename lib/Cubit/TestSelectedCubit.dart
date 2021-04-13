@@ -7,25 +7,29 @@ import 'package:flutter/material.dart';
 class TestSelectedState {
 
   List<Word> words;
-  Map<Word, dynamic> listAll = {};
+  dynamic contentTwoList;
+  Word selectedWord;
 
 
-
-  TestSelectedState({this.words, this.listAll});
+  TestSelectedState({this.words, this.contentTwoList, this.selectedWord});
 
   TestSelectedState copyWith({List<Word> newWords, 
-                       Map<Word, dynamic> newListAll}){
+                              dynamic newContentTwoList,
+                              Word newSelectedWord}){
 
     if (newWords != null){
       this.words = newWords;
     }
 
-    if (newListAll != null){
-      this.listAll = newListAll;
+    if (newContentTwoList != null){
+      this.contentTwoList = newContentTwoList;
     }
+
+    selectedWord = newSelectedWord;
     
     return TestSelectedState(words: newWords ?? this.words ,
-                            listAll: newListAll ?? this.listAll);
+                            contentTwoList: newContentTwoList ?? this.contentTwoList,
+                            selectedWord: selectedWord);
 
   }
   
@@ -39,8 +43,8 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   List<Word> _words;
 
-  Map<Word, dynamic> listAll = {};
-  Word selectedWord;
+  Map<Word, dynamic> _listAll = {};
+  Word _selectedWord;
 
   TestSelectedCubit(this.selectedState) : super(TestSelectedState());
 
@@ -49,7 +53,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
     List<Word> listStart = await cash.getWordsSorted(themesID, null, text: "");
 
     _words = _randomMixWord(listStart, listStart.length, null);
-    emit(selectedState.copyWith(newWords: _words, newListAll: listAll));
+    emit(selectedState.copyWith(newWords: _words, newContentTwoList: null));
 
   }
 
@@ -75,30 +79,52 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   }
 
+  //при тапе на конкретное слово
+  //или при тапе назад
+  bool tapedWordTest(Word word){
+    _selectedWord = word;
+    emit(selectedState.copyWith(newSelectedWord: _selectedWord));
 
-
-  // tapedWordTest({@required Word wordTaped}){
-    
-
-
-  // }
-
-  bool _selectedWord({@required Word word}){
-    selectedWord = word;
-
-
+    if (word != null){
+      _reloadListAll(word: word);
+    }
 
   }
+
+
+  _reloadListAll({@required Word word}){
+    final value = _listAll[word];
+
+    if (value == null){
+      final array = _randomMixWord(_words, 10, word);
+      _listAll[word] = array;
+      emit(selectedState.copyWith(newContentTwoList: array));
+      return;
+    }
+
+    emit(selectedState.copyWith(newContentTwoList: value));
+  }
+
+
+  tapedWordAnsver(Word word){
+    final newValue = word.id == _selectedWord.id;
+    _listAll[word] = newValue;
+
+    emit(selectedState.copyWith(newContentTwoList: _selectedWord));
+
+  }
+
+
 
   //цвет ячейки
   //
   
   bool _isSelected({@required Word word}){
-    if (selectedWord == null){
+    if (_selectedWord == null){
       return false;
     }
 
-    return Word.isEqu(selectedWord, word);
+    return Word.isEqu(_selectedWord, word);
   }
 
   Color colorCellText({@required Word word}){
@@ -117,7 +143,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
       return Colors.black;
     }
 
-    final value = listAll[word];
+    final value = _listAll[word];
 
     if (value == null){
       return Colors.white;
@@ -134,12 +160,11 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
   }
 
   //подсчет правильно/не правильно
-  //
-  //
-  //
+
+
   List<bool> get _listAnsver {
     List<bool> listReturn = [];
-    final listAnsver = listAll.values.toList();
+    final listAnsver = _listAll.values.toList();
 
     for (var obj in listAnsver){
       if (obj is bool){

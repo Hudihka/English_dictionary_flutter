@@ -12,7 +12,7 @@ class TestSelectedTwo extends StatelessWidget {
   BuildContext _context;
   TestSelectedCubit _contentCubit;
 
-  List<Word> _dataArray;
+  dynamic _content;
   Word _selectedWord;
 
 
@@ -25,14 +25,11 @@ class TestSelectedTwo extends StatelessWidget {
     return BlocBuilder<TestSelectedCubit, TestSelectedState>(builder: (context, state) {
       if (state is TestSelectedState) {
 
-        // _dataArray = state.words;
-        // _selectedWord = state.
+        _content = state.contentTwoList;
+        _selectedWord = state.selectedWord;
 
-        if (_dataArray == null){
-          return ScafoldLoad();
-        } else {
-          return _allContent;
-        }
+
+        return _allContent;
 
       }
     });
@@ -42,14 +39,29 @@ class TestSelectedTwo extends StatelessWidget {
 
 
   Widget get _allContent {
-    String text = rusWay ? "Rus -> Eng" : "Eng -> Rus";
 
     return WillPopScope(
       onWillPop: () { 
-        // _tabBarCubit.openMiniMedia();
+        _contentCubit.tapedWordTest(null);
        },
       child: Scaffold(
-      appBar: AppBar(
+      appBar: _appBar,
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
+      body: _body
+    )
+    );
+  }
+
+  AppBar get _appBar {
+
+    String text = "";
+
+    if (_content is List<Word>){
+      text = rusWay ? "Rus -> Eng" : "Eng -> Rus";
+    }
+
+    return AppBar(
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
         title: Text(
@@ -57,28 +69,36 @@ class TestSelectedTwo extends StatelessWidget {
           style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500)
         ),
         centerTitle: true,
-      ),
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: false,
-      body: _listTV
-    )
-    );
+      );
+
+
+
   }
 
-  Widget get _text {
+  Widget get _body {
+
+    if (_content is List<Word>){
+      return _listTV(_content);
+    }
+
+    return _textCenter;
+  }
+
+
+  Widget get _textCenter {
 
     return Center(
       child: Column(
         children: [
           Text(
-            theme.name, 
-            style: TextStyle(color: selected ? Colors.white : Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+            rusWay ? _selectedWord.rusValue : _selectedWord.engValue, 
+            style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
             ),
         SizedBox(height: 20,),
         Text(
-            theme.name, 
-            style: TextStyle(color: selected ? Colors.white : Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
+            !rusWay ? _selectedWord.rusValue : _selectedWord.engValue,
+            style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
             textAlign: TextAlign.center,
             ),
         ],
@@ -88,18 +108,19 @@ class TestSelectedTwo extends StatelessWidget {
 
 
 
-  Widget get _listTV {
+  Widget _listTV(List<Word> dataArray) {
+
 
     return Container(
       width: double.infinity,
       height: Const.fullHeightBody,
       child:  ListView.builder(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          itemCount: _dataArray.length,
+          itemCount: dataArray.length,
           itemBuilder: (context, index) {
             
-              final word = _dataArray[index];
-              return CellTestWord(word: word, rusWay: rusWay);
+              final word = dataArray[index];
+              return CellTestWordAnswer(word: word, rusWay: rusWay);
             
       })
     );

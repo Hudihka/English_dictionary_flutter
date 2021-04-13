@@ -1,12 +1,11 @@
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 
-class CellTestWord extends StatelessWidget {
+class CellTestWordAnswer extends StatelessWidget {
   Word word;
   bool rusWay;
-  Function(Word) tapedWord;
 
-  CellTestWord({@required this.word, @required this.rusWay});
+  CellTestWordAnswer({@required this.word, @required this.rusWay});
 
   TestSelectedCubit get _testCubit {
     return SingltonsCubit.shared.getTestSelectedCubit;
@@ -24,7 +23,7 @@ class CellTestWord extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        tapedWord(word);
+        _testCubit.tapedWordAnsver(word);
       },
       child: Container(
         width: double.infinity,
@@ -51,15 +50,6 @@ class CellTestWord extends StatelessWidget {
         ),
         SizedBox(height: 9,)];
 
-    if (word.descript == ""){
-      fondation.add(SizedBox(height: 10,));
-    } else {
-      fondation.add(Container(
-          height: 18,
-          child: _childrenText,
-        ),);
-    }
-
 
     return Column(
       children: fondation,
@@ -67,23 +57,6 @@ class CellTestWord extends StatelessWidget {
 
 
   }
-
-  Row get _childrenText{
-
-    List<Widget> listWidget = [
-      Container(
-        width: 85,
-        child: Text(
-            word.descript, 
-            style: TextStyle(color: _colorText, fontSize: 16, fontWeight: FontWeight.w400),
-            textAlign: TextAlign.left,
-          ),
-      ),
-    ];
-
-  return Row(children: listWidget);
-}
-
 
 
 }

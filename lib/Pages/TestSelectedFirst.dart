@@ -1,4 +1,5 @@
 
+import 'package:english_dictionary_flutter/Pages/TestSelectedTwo.dart';
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 
@@ -69,6 +70,8 @@ class TestSelectedFirst extends StatelessWidget {
   Widget get _listTV {
 
 
+// TestSelectedTwo
+
     return Container(
       width: double.infinity,
       height: Const.fullHeightBody - 79,
@@ -77,11 +80,27 @@ class TestSelectedFirst extends StatelessWidget {
           itemCount: _dataArray.length,
           itemBuilder: (context, index) {
             
-              final word = _dataArray[index];
-              return CellTestWord(word: word, rusWay: rusWay);
+            return _cell(index);
             
       })
     );
+  }
+
+
+  CellTestWord _cell(int index){
+
+    final word = _dataArray[index];
+    final cell = CellTestWord(word: word, rusWay: rusWay);
+
+    cell.tapedWord = (value){
+
+                _contentCubit.tapedWordTest(value);
+                Navigator.push(_context, MaterialPageRoute(
+                builder: (context) => TestSelectedTwo(rusWay: rusWay)),);
+
+    };
+
+    return cell;
   }
 
 
