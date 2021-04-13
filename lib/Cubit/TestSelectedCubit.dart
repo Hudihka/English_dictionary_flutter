@@ -62,7 +62,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
     inArray.shuffle();
 
     if (truhWord != null){
-      inArray.retainWhere((item) => item.id == truhWord.id);
+      inArray.retainWhere((item) => item.id != truhWord.id);
     }
     
     if (countFinalLeng < inArray.length){
@@ -109,6 +109,8 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
   tapedWordAnsver(Word word){
     final newValue = word.id == _selectedWord.id;
     _listAll[word] = newValue;
+
+    //добавить вибрацию в зависимости от ответа
 
     emit(selectedState.copyWith(newContentTwoList: _selectedWord));
 

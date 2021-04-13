@@ -95,8 +95,9 @@ class TestSelectedFirst extends StatelessWidget {
     cell.tapedWord = (value){
 
                 _contentCubit.tapedWordTest(value);
+
                 Navigator.push(_context, MaterialPageRoute(
-                builder: (context) => TestSelectedTwo(rusWay: rusWay)),);
+                builder: (context) => TestSelectedTwo(rusWay: !rusWay)),);
 
     };
 

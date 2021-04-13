@@ -9,7 +9,6 @@ class TestSelectedTwo extends StatelessWidget {
 
   TestSelectedTwo({@required this.rusWay});
 
-  BuildContext _context;
   TestSelectedCubit _contentCubit;
 
   dynamic _content;
@@ -18,9 +17,6 @@ class TestSelectedTwo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    _context = context;
-    _contentCubit = context.read();
 
     return BlocBuilder<TestSelectedCubit, TestSelectedState>(builder: (context, state) {
       if (state is TestSelectedState) {
