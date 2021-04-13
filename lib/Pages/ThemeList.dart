@@ -51,30 +51,7 @@ class Lenta extends StatelessWidget {
       );
   }
 
-  // Widget get _appBar {
 
-  //     final empty = _selectedList.isEmpty;
-
-
-  //   return AppBar(
-  //         shadowColor: Const.clearColor,
-  //         backgroundColor: Colors.white,
-  //         leading: GestureDetector(
-  //         behavior: HitTestBehavior.translucent,
-  //         child: Container(
-  //           height: 25,
-  //           width: 60,
-  //           child: Center(
-  //             child: Text('   Сброс', 
-  //             style: TextStyle(color: empty? Const.lightGrey : Colors.black, ),),
-  //           ),
-  //         ),
-  //         onTap: empty ? null : () {
-  //           _contentCubit.clearAll();
-  //         },
-  //       ),
-  //   );
-  // }
 
   
 
@@ -193,9 +170,9 @@ class Lenta extends StatelessWidget {
   _alert(){
     final alert = AlertWay(context: _context,);
 
-    alert.lening = (){
+    List<String> listID = _selectedList.map((e) => e.id).toList();
 
-      List<String> listID = _selectedList.map((e) => e.id).toList();
+    alert.lening = (){
 
       final cramming = Cramming(themesID: listID);
 
@@ -204,8 +181,13 @@ class Lenta extends StatelessWidget {
       );
     };
 
+
     alert.rusEng = (){
-      print('------1');
+      final first = F;
+
+      Navigator.push(_context, MaterialPageRoute(
+            builder: (context) => first),
+      );
     };
 
     alert.engRus = (){

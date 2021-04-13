@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:english_dictionary_flutter/export.dart';
+import 'package:flutter/material.dart';
 
 class TestSelectedState {
 
@@ -49,14 +50,77 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   }
 
-  tapedWordTest({@required Word wordTaped}){
+  // tapedWordTest({@required Word wordTaped}){
+    
+
+
+  // }
+
+  bool _selectedWord({@required Word word}){
+    selectedWord = word;
+
 
 
 
   }
 
-  bool _selectedWord({@required Word word}){
+  //цвет ячейки
+  //
+  
+  bool _isSelected({@required Word word}){
+    if (selectedWord == null){
+      return false;
+    }
+
+    return Word.isEqu(selectedWord, word);
+  }
+
+  Color colorCellText({@required Word word}){
     
+    if (_isSelected(word: word)){
+      return Colors.white;
+    }
+
+    return Colors.black;
+  }
+
+
+  Color colorCellBacground({@required Word word}){
+    
+    if (_isSelected(word: word)){
+      return Colors.black;
+    }
+
+    final value = listAll[word];
+
+    if (value == null){
+      return Colors.white;
+    }
+
+    if (value is List<Word>){
+      return Colors.white;
+    }
+
+    if (value is bool){
+      return value ? Colors.green[200] : Colors.red[200];
+    }
+
+  }
+
+  //подсчет правильно/не правильно
+  //
+  //
+  //
+  List<bool> get _listAnsver {
+    return listAll.values.toList().where((element) => element is bool).toList();
+  }
+  
+  int get getCountTrue {
+    return _listAnsver.where((element) => element == true).length;
+  }
+
+  int get getCountFalse {
+    return _listAnsver.where((element) => element == false).length;
   }
 
   
