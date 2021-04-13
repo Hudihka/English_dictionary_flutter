@@ -45,6 +45,8 @@ class TestSelectedFirst extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
         title: Text(
           text,
           style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500)
@@ -52,7 +54,7 @@ class TestSelectedFirst extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: true,
       body: _listTV
     );
   }

@@ -1,3 +1,4 @@
+import 'package:english_dictionary_flutter/Pages/TestSelectedFirst.dart';
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 
@@ -183,7 +184,7 @@ class Lenta extends StatelessWidget {
 
 
     alert.rusEng = (){
-      final first = F;
+      final first = TestSelectedFirst(rusWay: true, themesID: listID);
 
       Navigator.push(_context, MaterialPageRoute(
             builder: (context) => first),
@@ -191,7 +192,11 @@ class Lenta extends StatelessWidget {
     };
 
     alert.engRus = (){
-      print('------2');
+      final first = TestSelectedFirst(rusWay: false, themesID: listID);
+
+      Navigator.push(_context, MaterialPageRoute(
+            builder: (context) => first),
+      );
     };
 
 

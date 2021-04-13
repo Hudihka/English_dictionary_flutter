@@ -112,15 +112,32 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
   //
   //
   List<bool> get _listAnsver {
-    return listAll.values.toList().where((element) => element is bool).toList();
+    List<bool> listReturn = [];
+    final listAnsver = listAll.values.toList();
+
+    for (var obj in listAnsver){
+      if (obj is bool){
+        listReturn.add(obj);
+      }
+    }
+
+    return listReturn;
   }
   
   int get getCountTrue {
-    return _listAnsver.where((element) => element == true).length;
+    if (_listAnsver is List<bool>){
+      return _listAnsver.where((element) => element == true).length;
+    }
+    
+    return 0;
   }
 
   int get getCountFalse {
-    return _listAnsver.where((element) => element == false).length;
+    if (_listAnsver is List<bool>){
+      return _listAnsver.where((element) => element == false).length;
+    }
+    
+    return 0;
   }
 
   
