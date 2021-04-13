@@ -3,16 +3,17 @@ import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 
 
-class TestSelectedFirst extends StatelessWidget {
+class TestSelectedTwo extends StatelessWidget {
 
   bool rusWay;
-  List<String> themesID;
-  TestSelectedFirst({@required this.rusWay, @required this.themesID});
+
+  TestSelectedTwo({@required this.rusWay});
 
   BuildContext _context;
   TestSelectedCubit _contentCubit;
 
   List<Word> _dataArray;
+  Word _selectedWord;
 
 
   @override
@@ -20,14 +21,12 @@ class TestSelectedFirst extends StatelessWidget {
 
     _context = context;
     _contentCubit = context.read();
-    _contentCubit.fetchContent(themesID: themesID);
-
-    SingltonsCubit.shared.saveTestSelectedCubit(_contentCubit);
 
     return BlocBuilder<TestSelectedCubit, TestSelectedState>(builder: (context, state) {
       if (state is TestSelectedState) {
 
-        _dataArray = state.words;
+        // _dataArray = state.words;
+        // _selectedWord = state.
 
         if (_dataArray == null){
           return ScafoldLoad();
@@ -39,11 +38,17 @@ class TestSelectedFirst extends StatelessWidget {
     });
   }
 
+  
+
 
   Widget get _allContent {
     String text = rusWay ? "Rus -> Eng" : "Eng -> Rus";
 
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () { 
+        // _tabBarCubit.openMiniMedia();
+       },
+      child: Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
@@ -55,10 +60,27 @@ class TestSelectedFirst extends StatelessWidget {
       ),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      body: Column(
+      body: _listTV
+    )
+    );
+  }
+
+  Widget get _text {
+
+    return Center(
+      child: Column(
         children: [
-          HrderTestTable(),
-          _listTV
+          Text(
+            theme.name, 
+            style: TextStyle(color: selected ? Colors.white : Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+            ),
+        SizedBox(height: 20,),
+        Text(
+            theme.name, 
+            style: TextStyle(color: selected ? Colors.white : Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
+            textAlign: TextAlign.center,
+            ),
         ],
       )
     );
@@ -68,10 +90,9 @@ class TestSelectedFirst extends StatelessWidget {
 
   Widget get _listTV {
 
-
     return Container(
       width: double.infinity,
-      height: Const.fullHeightBody - 79,
+      height: Const.fullHeightBody,
       child:  ListView.builder(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           itemCount: _dataArray.length,

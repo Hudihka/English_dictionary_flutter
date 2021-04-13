@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:math';
 
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +46,36 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   Future<void> fetchContent({@required List<String> themesID}) async {
 
-    _words = await cash.getWordsSorted(themesID, null, text: "");
+    List<Word> listStart = await cash.getWordsSorted(themesID, null, text: "");
+
+    _words = _randomMixWord(listStart, listStart.length, null);
     emit(selectedState.copyWith(newWords: _words, newListAll: listAll));
 
   }
+
+  List<Word> _randomMixWord(List<Word> inArray, int countFinalLeng, Word truhWord){
+
+    inArray.shuffle();
+
+    if (truhWord != null){
+      inArray.retainWhere((item) => item.id == truhWord.id);
+    }
+    
+    if (countFinalLeng < inArray.length){
+      inArray.sublist(0, countFinalLeng - 1);
+    }
+
+    if (truhWord != null){
+      Random random = new Random();
+      final index = random.nextInt(countFinalLeng);
+      inArray[index] = truhWord;
+    }
+
+    return inArray;
+
+  }
+
+
 
   // tapedWordTest({@required Word wordTaped}){
     
@@ -58,7 +85,6 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   bool _selectedWord({@required Word word}){
     selectedWord = word;
-
 
 
 
