@@ -14,6 +14,14 @@ class TestSelectedTwo extends StatelessWidget {
   dynamic _content;
   Word _selectedWord;
 
+  Color get _colorAll {
+    if (_content is List<Word>){
+      return Colors.white;
+    }
+
+    return _content ? Colors.green[200] : Colors.red[200];
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +44,22 @@ class TestSelectedTwo extends StatelessWidget {
 
   Widget get _allContent {
 
+    //     return Scaffold(
+    //   appBar: _appBar,
+    //   backgroundColor: Colors.white,
+    //   resizeToAvoidBottomInset: false,
+    //   body: _body
+    
+    // );
+
     return WillPopScope(
       onWillPop: () { 
-        _contentCubit.tapedWordTest(null);
+        print('-----------');
+        _contentCubit.clearSelectedWord();
        },
       child: Scaffold(
       appBar: _appBar,
-      backgroundColor: Colors.white,
+      backgroundColor: _colorAll,
       resizeToAvoidBottomInset: false,
       body: _body
     )
@@ -54,11 +71,11 @@ class TestSelectedTwo extends StatelessWidget {
     String text = "";
 
     if (_content is List<Word>){
-      text = rusWay ? "Rus -> Eng" : "Eng -> Rus";
+      text = !rusWay ? _selectedWord.rusValue : _selectedWord.engValue;
     }
 
     return AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: _colorAll,
         shadowColor: Colors.transparent,
         title: Text(
           text,
@@ -85,6 +102,8 @@ class TestSelectedTwo extends StatelessWidget {
 
     return Center(
       child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             rusWay ? _selectedWord.rusValue : _selectedWord.engValue, 
@@ -98,8 +117,26 @@ class TestSelectedTwo extends StatelessWidget {
             textAlign: TextAlign.center,
             ),
         ],
-      )
+    ),
     );
+
+    // return Center(
+    //   child: Column(
+    //     children: [
+    //       Text(
+    //         rusWay ? _selectedWord.rusValue : _selectedWord.engValue, 
+    //         style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+    //         textAlign: TextAlign.center,
+    //         ),
+    //     SizedBox(height: 20,),
+    //     Text(
+    //         !rusWay ? _selectedWord.rusValue : _selectedWord.engValue,
+    //         style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
+    //         textAlign: TextAlign.center,
+    //         ),
+    //     ],
+    //   )
+    // );
   }
 
 

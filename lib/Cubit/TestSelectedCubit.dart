@@ -25,7 +25,9 @@ class TestSelectedState {
       this.contentTwoList = newContentTwoList;
     }
 
-    selectedWord = newSelectedWord;
+    if (newSelectedWord != null){
+      this.selectedWord = newSelectedWord;
+    }
     
     return TestSelectedState(words: newWords ?? this.words ,
                             contentTwoList: newContentTwoList ?? this.contentTwoList,
@@ -66,7 +68,9 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
     }
     
     if (countFinalLeng < inArray.length){
-      inArray.sublist(0, countFinalLeng - 1);
+      inArray = inArray.sublist(0, countFinalLeng);
+
+      print('-----------------');
     }
 
     if (truhWord != null){
@@ -81,13 +85,20 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   //при тапе на конкретное слово
   //или при тапе назад
+  //
+  //
   bool tapedWordTest(Word word){
     _selectedWord = word;
+
     emit(selectedState.copyWith(newSelectedWord: _selectedWord));
 
-    if (word != null){
-      _reloadListAll(word: word);
-    }
+    _reloadListAll(word: word);
+  }
+
+  clearSelectedWord(){
+    _selectedWord = null;
+    selectedState.selectedWord = null;
+    emit(selectedState.copyWith(newSelectedWord: null));
 
   }
 
@@ -112,7 +123,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
     //добавить вибрацию в зависимости от ответа
 
-    emit(selectedState.copyWith(newContentTwoList: _selectedWord));
+    emit(selectedState.copyWith(newContentTwoList: newValue, ));
 
   }
 

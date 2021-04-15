@@ -11,13 +11,6 @@ class CellTestWordAnswer extends StatelessWidget {
     return SingltonsCubit.shared.getTestSelectedCubit;
   }
 
-  Color get _colorBacgr {
-    return _testCubit.colorCellBacground(word: word);
-  }
-
-  Color get _colorText {
-    return _testCubit.colorCellText(word: word);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +20,7 @@ class CellTestWordAnswer extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        color: _colorBacgr,
+        color: Colors.white,
         child: Padding(
           padding: EdgeInsets.only(left: 16, top: 17, right: 16, bottom: 13),
           child: _content,
@@ -44,7 +37,7 @@ class CellTestWordAnswer extends StatelessWidget {
           height: 19,
           child: Text(
             text, 
-            style: TextStyle(color: _colorText, fontSize: 18, fontWeight: FontWeight.w500),
+            style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
             textAlign: TextAlign.left,
             ),
         ),
