@@ -11,6 +11,8 @@ class TestSelectedTwo extends StatelessWidget {
 
   TestSelectedCubit _contentCubit;
 
+  BuildContext _context;
+
   dynamic _content;
   Word _selectedWord;
 
@@ -25,6 +27,8 @@ class TestSelectedTwo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    _context = context;
 
     return BlocBuilder<TestSelectedCubit, TestSelectedState>(builder: (context, state) {
       if (state is TestSelectedState) {
@@ -44,23 +48,15 @@ class TestSelectedTwo extends StatelessWidget {
 
   Widget get _allContent {
 
-    //     return Scaffold(
-    //   appBar: _appBar,
-    //   backgroundColor: Colors.white,
-    //   resizeToAvoidBottomInset: false,
-    //   body: _body
-    
-    // );
-
     return WillPopScope(
       onWillPop: () { 
-        print('-----------');
-        _contentCubit.clearSelectedWord();
+        SingltonsCubit.shared.getTestSelectedCubit.clearSelectedWord();
+        Navigator.of(_context).pop();
        },
       child: Scaffold(
       appBar: _appBar,
       backgroundColor: _colorAll,
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: _body
     )
     );
@@ -77,6 +73,7 @@ class TestSelectedTwo extends StatelessWidget {
     return AppBar(
         backgroundColor: _colorAll,
         shadowColor: Colors.transparent,
+        automaticallyImplyLeading: false,
         title: Text(
           text,
           style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500)
@@ -92,6 +89,10 @@ class TestSelectedTwo extends StatelessWidget {
 
     if (_content is List<Word>){
       return _listTV(_content);
+    }
+
+    if (_selectedWord == null){
+      return Container();
     }
 
     return _textCenter;

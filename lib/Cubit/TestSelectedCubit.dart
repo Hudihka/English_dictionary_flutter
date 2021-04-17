@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
+import 'package:vibration/vibration.dart';
 
 class TestSelectedState {
 
@@ -122,6 +123,12 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
     _listAll[word] = newValue;
 
     //добавить вибрацию в зависимости от ответа
+    //
+    if (newValue){
+      Vibration.vibrate(duration: 500, amplitude: 64);
+    } else {
+      Vibration.vibrate(duration: 750, amplitude: 256);
+    }
 
     emit(selectedState.copyWith(newContentTwoList: newValue, ));
 

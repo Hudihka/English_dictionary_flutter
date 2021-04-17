@@ -34,7 +34,7 @@ class CellTestWordAnswer extends StatelessWidget {
 
     List<Widget> fondation = [Container(
           width: double.infinity,
-          height: 19,
+          height: 25,
           child: Text(
             text, 
             style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
