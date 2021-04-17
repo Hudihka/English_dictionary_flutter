@@ -22,34 +22,22 @@ class SplitPage extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        Widget child = Const.hDevice < Const.wDevice ? _TabletHomePage() : _MobileHomePage();
+        bool horizontalOrient = Const.hDevice < Const.wDevice;
+
+        Widget child = horizontalOrient ? _TabletHomePage(horizontalOrient: horizontalOrient,) : TestSelectedFirst();
         return child;
       },
     );
   }
 
-  // Widget _content(){
-
-  //   Widget child = Const.hDevice < Const.wDevice ? _TabletHomePage() : _MobileHomePage();
-
-  //   return WillPopScope(
-  //     onWillPop: () { 
-  //       SingltonsCubit.shared.getTestSelectedCubit.clearSelectedWord();
-  //       Navigator.of(_context).pop();
-  //      },
-  //      child: child,
-  //   );
-  // }
 }
 
-class _MobileHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TestSelectedFirst();
-  }
-}
+
 
 class _TabletHomePage extends StatelessWidget {
+  bool horizontalOrient; 
+  _TabletHomePage({@required this.horizontalOrient});
+
   @override
   Widget build(BuildContext context) {
     return Row(
