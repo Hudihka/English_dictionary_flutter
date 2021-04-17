@@ -1,4 +1,5 @@
 
+import 'package:english_dictionary_flutter/Pages/SplitPage/SplitPage.dart';
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 
@@ -184,25 +185,31 @@ class Lenta extends StatelessWidget {
 
 
     alert.rusEng = (){
-      SingltonOrientation.shared.twoOrientation();
-      final first = TestSelectedFirst(rusWay: true, themesID: listID);
-
-      Navigator.push(_context, MaterialPageRoute(
-            builder: (context) => first),
-      );
+      _showTestFirst(listID: listID, rusWay: true);
     };
 
     alert.engRus = (){
-      SingltonOrientation.shared.twoOrientation();
-      final first = TestSelectedFirst(rusWay: false, themesID: listID);
-
-      Navigator.push(_context, MaterialPageRoute(
-            builder: (context) => first),
-      );
+      _showTestFirst(listID: listID, rusWay: false);
     };
 
 
     showDialog(context: _context, builder: (BuildContext context) => alert);
+  }
+
+  _showTestFirst({List<String> listID, bool rusWay}){
+      //     SingltonOrientation.shared.twoOrientation();
+      // final first = MyHomePage();
+
+      // Navigator.push(_context, MaterialPageRoute(
+      //       builder: (context) => first),
+      // );
+      
+      SingltonOrientation.shared.twoOrientation();
+      final first = SplitPage(rusWay: rusWay, themesID: listID);
+
+      Navigator.push(_context, MaterialPageRoute(
+            builder: (context) => first),
+      );
   }
 
 

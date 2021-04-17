@@ -5,11 +5,7 @@ import 'package:flutter/material.dart';
 
 class TestSelectedTwo extends StatelessWidget {
 
-  bool rusWay;
-
-  TestSelectedTwo({@required this.rusWay});
-
-  TestSelectedCubit _contentCubit;
+  bool _rusWay;
 
   BuildContext _context;
 
@@ -35,9 +31,10 @@ class TestSelectedTwo extends StatelessWidget {
 
         _content = state.contentTwoList;
         _selectedWord = state.selectedWord;
+        _rusWay = !state.rusWay;
 
         if (_content == null){
-          return ScafoldLoad();
+          return _textCenter;
         }
 
 
@@ -72,7 +69,7 @@ class TestSelectedTwo extends StatelessWidget {
 
     if (_content is List<Word>){
       if (_selectedWord != null){
-        text = !rusWay ? _selectedWord.rusValue : _selectedWord.engValue;
+        text = !_rusWay ? _selectedWord.rusValue : _selectedWord.engValue;
       }
     }
 
@@ -107,19 +104,26 @@ class TestSelectedTwo extends StatelessWidget {
 
   Widget get _textCenter {
 
+
+    final textTop = _content == null ? 'НЕТ ВЫБРАННОГО СЛОВА' : 
+                                        _rusWay ? _selectedWord.rusValue : _selectedWord.engValue;
+
+    final textDown = _content == null ? 'выбери слово' : 
+                                        !_rusWay ? _selectedWord.rusValue : _selectedWord.engValue;
+
     return Center(
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            rusWay ? _selectedWord.rusValue : _selectedWord.engValue, 
+            textTop, 
             style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
             ),
         SizedBox(height: 20,),
         Text(
-            !rusWay ? _selectedWord.rusValue : _selectedWord.engValue,
+            textDown,
             style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
             textAlign: TextAlign.center,
             ),
@@ -128,6 +132,7 @@ class TestSelectedTwo extends StatelessWidget {
     );
 
   }
+
 
 
 
@@ -143,7 +148,7 @@ class TestSelectedTwo extends StatelessWidget {
           itemBuilder: (context, index) {
             
               final word = dataArray[index];
-              return CellTestWordAnswer(word: word, rusWay: rusWay);
+              return CellTestWordAnswer(word: word, rusWay: _rusWay);
             
       })
     );

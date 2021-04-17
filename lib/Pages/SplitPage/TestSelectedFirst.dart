@@ -1,17 +1,19 @@
 
-import 'package:english_dictionary_flutter/Pages/TestSelectedTwo.dart';
+import 'package:english_dictionary_flutter/Pages/SplitPage/TestSelectedTwo.dart';
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 
 
 class TestSelectedFirst extends StatelessWidget {
 
-  bool rusWay;
-  List<String> themesID;
-  TestSelectedFirst({@required this.rusWay, @required this.themesID});
+  bool _rusWay;
+  // List<String> themesID;
+  // TestSelectedFirst({@required this.rusWay, @required this.themesID});
 
   BuildContext _context;
-  TestSelectedCubit _contentCubit;
+  TestSelectedCubit get _contentCubit{
+    return SingltonsCubit.shared.getTestSelectedCubit;
+  }
 
   List<Word> _dataArray;
 
@@ -20,15 +22,12 @@ class TestSelectedFirst extends StatelessWidget {
   Widget build(BuildContext context) {
 
     _context = context;
-    _contentCubit = context.read();
-    _contentCubit.fetchContent(themesID: themesID);
-
-    SingltonsCubit.shared.saveTestSelectedCubit(_contentCubit);
 
     return BlocBuilder<TestSelectedCubit, TestSelectedState>(builder: (context, state) {
       if (state is TestSelectedState) {
 
         _dataArray = state.words;
+        _rusWay = state.rusWay;
 
         if (_dataArray == null){
           return ScafoldLoad();
@@ -43,12 +42,7 @@ class TestSelectedFirst extends StatelessWidget {
 
   Widget get _allContent {
 
-    return WillPopScope(
-      onWillPop: () { 
-        SingltonOrientation.shared.oneOrientation();
-        Navigator.of(_context).pop();
-       },
-      child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -59,7 +53,6 @@ class TestSelectedFirst extends StatelessWidget {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: _listTV
-    )
     );
   }
 
@@ -88,14 +81,14 @@ class TestSelectedFirst extends StatelessWidget {
   CellTestWord _cell(int index){
 
     final word = _dataArray[index];
-    final cell = CellTestWord(word: word, rusWay: rusWay);
+    final cell = CellTestWord(word: word, rusWay: _rusWay);
 
     cell.tapedWord = (value){
 
                 _contentCubit.tapedWordTest(value);
 
                 Navigator.push(_context, MaterialPageRoute(
-                builder: (context) => TestSelectedTwo(rusWay: !rusWay)),);
+                builder: (context) => TestSelectedTwo()),);
 
     };
 
