@@ -1,6 +1,5 @@
 
-
-import 'package:english_dictionary_flutter/Support/Const.dart';
+import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 
 class HederTheme extends StatelessWidget {

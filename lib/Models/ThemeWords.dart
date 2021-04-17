@@ -1,8 +1,5 @@
 
-import 'package:english_dictionary_flutter/Data/DBProvider.dart';
-import 'package:hive/hive.dart';
-import 'Word.dart';
-import 'package:english_dictionary_flutter/Extension/String.dart';
+import 'package:english_dictionary_flutter/export.dart';
 part 'ThemeWords.g.dart';
 
 @HiveType(typeId: 0)

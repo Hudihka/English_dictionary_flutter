@@ -1,6 +1,4 @@
-
-import 'package:hive/hive.dart';
-import 'package:english_dictionary_flutter/Extension/String.dart';
+import 'package:english_dictionary_flutter/export.dart';
 part 'Word.g.dart';
 
 
@@ -50,6 +48,12 @@ class Word {
 
   //   return wordLists;
   // }
+
+  static bool isEqu(Word word1, Word word2){
+    return word1.id == word2.id;
+  }
+
+
 
 }
 

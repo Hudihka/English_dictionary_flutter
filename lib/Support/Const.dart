@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:english_dictionary_flutter/Extension/String.dart';
-import 'dart:io' show Platform;
+import 'package:english_dictionary_flutter/export.dart';
 
 
 

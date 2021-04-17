@@ -1,9 +1,5 @@
 
-
-import 'package:english_dictionary_flutter/Content/Prepositions.dart';
-import 'package:english_dictionary_flutter/Content/ProfessionAndWork.dart';
-import 'package:english_dictionary_flutter/Content/Subjects.dart';
-import 'package:english_dictionary_flutter/Content/Time.dart';
+import 'package:english_dictionary_flutter/export.dart';
 
 class AllContent {
   static List<Map<String, dynamic>> allContent = [

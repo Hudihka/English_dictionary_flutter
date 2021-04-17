@@ -1,34 +1,12 @@
-import 'package:english_dictionary_flutter/Cubit/SingltonCubit.dart';
-import 'package:english_dictionary_flutter/Cubit/WordCubit.dart';
-import 'package:english_dictionary_flutter/Models/Word.dart';
-import 'package:english_dictionary_flutter/Support/Const.dart';
-import 'package:english_dictionary_flutter/Support/ScafoldLoad.dart';
-import 'package:english_dictionary_flutter/Views/CellWord.dart';
-import 'package:english_dictionary_flutter/Views/CellWordOpasity.dart';
+
+import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
-import 'package:english_dictionary_flutter/Extension/String.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_segmented_control/material_segmented_control.dart';
 
 
 class Cramming extends StatelessWidget {
-  final state = WordsState();
+
   List<String> themesID;
-
   Cramming({@required this.themesID});
-
-  @override
-  Widget build(BuildContext context) {
-    Const.setSize(context);
-
-    return BlocProvider<WordCubit>(
-      create: (context) => WordCubit(state, themesID: themesID),
-      child: CrammingContent()
-    );
-  }
-}
-
-class CrammingContent extends StatelessWidget {
 
   BuildContext _context;
   WordCubit _contentCubit;
@@ -45,6 +23,9 @@ class CrammingContent extends StatelessWidget {
     _context = context;
 
     _contentCubit = context.read();
+    _contentCubit.themesID = themesID;
+
+
     _contentCubit.fetchContent();
 
     SingltonsCubit.shared.saveWordCubit(_contentCubit);

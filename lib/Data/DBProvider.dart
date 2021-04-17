@@ -1,10 +1,5 @@
 
-
-import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
-import 'package:english_dictionary_flutter/Models/Word.dart';
-import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
+import 'package:english_dictionary_flutter/export.dart';
 
 class DBProvider {
 
@@ -12,17 +7,28 @@ class DBProvider {
 
   static final DBProvider db = DBProvider._();
 
+  List<String> listFavorit = []; //при инициализации мы выковыриваем те слова, что фаворит
+
 Future<void> initDB() async {
   await Hive.initFlutter();
   Hive.openBox('name_box');
   Hive.registerAdapter(ThemeWordsAdapter()); 
   Hive.registerAdapter(WordAdapter()); 
 
-
-  // await Hive.initFlutter();
-  // Hive.registerAdapter(UserAdapter());
-  // await Hive.openBox<Todo>(HiveBoxes.todo);
 }
+
+Future<void> initListFavoriteWord() async {
+  var boxWord = await Hive.openBox<Word>('Word');
+
+
+  listFavorit = boxWord.values.toList().map((element){
+    if (element.favorit){
+      return element.id;
+    }
+  }).toList();
+
+}
+
 
 
 Future<void> newThemeList(List<ThemeWords> themes) async {
@@ -33,13 +39,7 @@ Future<void> newThemeList(List<ThemeWords> themes) async {
   await Future.forEach(themes, (e) async {
     allThemes[e.id] = e;
     _newWordList(e.listWord);
-    // newId.add(e.id);
   });
-
-  // for (var e in themes){
-  //   allThemes[e.id] = e;
-  //   // _newWordList(e.listWord);
-  // }
 
   box.putAll(allThemes);
 
@@ -50,16 +50,30 @@ _newWordList(List<Word> words) async {
   var box = await Hive.openBox<Word>('Word');
 
   Map<String, Word> allWord = {};
+
   Set<String> newId = {};
 
+  Set<dynamic> oldID = box.keys.toSet();
+
+  // await favoriteCheck(index: 0);
+
   for (var e in words){
-    allWord[e.id] = e;
-    newId.add(e.id);
+    ///если Уже есть обьект с 
+    ///таким ид то мы не добавляем его
+    ///
+    final IDword = e.id;
+    e.favorit = listFavorit.contains(IDword);
+
+    allWord[IDword] = e;
+    newId.add(IDword);
+    
   }
+
+  // await favoriteCheck(index: 1);
+
 
   box.putAll(allWord);
 
-  Set<dynamic> oldID = box.keys.toSet();
   Set<dynamic> deleteID = oldID.difference(newId);//те что надо удалить
 
   if (deleteID.isNotEmpty) {
@@ -67,6 +81,7 @@ _newWordList(List<Word> words) async {
   }
 
 }
+
 
 Future<List<ThemeWords>> getAllThemes() async {
   var box = await Hive.openBox<ThemeWords>('ThemeWords');
@@ -92,6 +107,8 @@ Future<List<ThemeWords>> getThemes(List<String> listID) async {
 Future<List<Word>> getWordsSorted(List<String> listIDThemes, bool rusSorted, {@required String text}) async {
   List<Word> listWord = await _getWords(listIDThemes);
 
+if (rusSorted != null){
+
   if (rusSorted){
 
     listWord.sort((a, b){
@@ -105,6 +122,7 @@ Future<List<Word>> getWordsSorted(List<String> listIDThemes, bool rusSorted, {@r
     });
 
   }
+}
 
     if (text != ""){
       if (rusSorted){
@@ -142,21 +160,21 @@ likeButton(Word word) async {
   }
 
   var box = await Hive.openBox<Word>('Word');
-  // print('--------------------');
+
   final index = box.values.toList().indexWhere((element) => element.id == word.id);
-  // print('--------------------++$index');
-  box.putAt(index, word);
 
-  // print('------++++');
-  // var box2 = await Hive.openBox<Word>('Word');
-  // final listTest = box2.values.toList();
-  // for (var obj in listTest){
+  if (index == -1){
 
-  //   final rus = obj.rusValue;
-  //   final favorit = obj.favorit;
-  //   print('rusValue $rus');
-  //   print('rusValue $favorit');
-  // }
+    Map<String, Word> wordsMap = {word.id : word};
+    box.putAll(wordsMap);
+  } else {
+    box.putAt(index, word);
+  }
+  
+
+  // favoriteCheck(index: 0);
+
+
 
 
 }
@@ -168,6 +186,20 @@ Future<List<String>> get idsWord async {
   return ids ?? [];
 }
 
+
+
+// void favoriteCheck({@required int index}) async {
+
+//   print('start -------------------------- $index');
+
+//   var box = await Hive.openBox<Word>('Word');
+//   final idTest = '56276b744191c78b9f7e0eb3cea20308';
+//   final word = box.values.toList().indexWhere((element) => element.id == idTest);
+
+//   print('-------------------------- $index');
+//   // print(word.favorit);
+
+// }
 
 
 

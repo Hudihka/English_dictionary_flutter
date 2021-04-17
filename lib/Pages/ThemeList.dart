@@ -1,30 +1,8 @@
-import 'package:english_dictionary_flutter/Cubit/SingltonCubit.dart';
-import 'package:english_dictionary_flutter/Pages/Cramming.dart';
-import 'package:english_dictionary_flutter/Support/Const.dart';
-import 'package:english_dictionary_flutter/Support/ScafoldLoad.dart';
-import 'package:english_dictionary_flutter/Views/AlertWay.dart';
-import 'package:english_dictionary_flutter/Views/BBItem.dart';
-import 'package:english_dictionary_flutter/Views/CellTheme.dart';
-import 'package:english_dictionary_flutter/Views/HederThemes.dart';
+import 'package:english_dictionary_flutter/Pages/TestSelectedFirst.dart';
+import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../Cubit/ThemeCubit.dart';
-import '../Models/ThemeWords.dart';
 
 
-class ThemeList extends StatelessWidget {
-  final state = ThemeState();
-
-  @override
-  Widget build(BuildContext context) {
-    Const.setSize(context);
-
-    return BlocProvider<ThemeCubit>(
-      create: (context) => ThemeCubit(state),
-      child: Lenta()
-    );
-  }
-}
 
 class Lenta extends StatelessWidget {
 
@@ -39,10 +17,11 @@ class Lenta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //говорит о том, что грузим юзеров при запуске
+    //
+    Const.setSize(context);
     _context = context;
 
     _contentCubit = context.read();
-    _contentCubit.fetchContent();
 
     SingltonsCubit.shared.saveThemeCubit(_contentCubit);
 
@@ -73,30 +52,7 @@ class Lenta extends StatelessWidget {
       );
   }
 
-  // Widget get _appBar {
 
-  //     final empty = _selectedList.isEmpty;
-
-
-  //   return AppBar(
-  //         shadowColor: Const.clearColor,
-  //         backgroundColor: Colors.white,
-  //         leading: GestureDetector(
-  //         behavior: HitTestBehavior.translucent,
-  //         child: Container(
-  //           height: 25,
-  //           width: 60,
-  //           child: Center(
-  //             child: Text('   Сброс', 
-  //             style: TextStyle(color: empty? Const.lightGrey : Colors.black, ),),
-  //           ),
-  //         ),
-  //         onTap: empty ? null : () {
-  //           _contentCubit.clearAll();
-  //         },
-  //       ),
-  //   );
-  // }
 
   
 
@@ -215,9 +171,9 @@ class Lenta extends StatelessWidget {
   _alert(){
     final alert = AlertWay(context: _context,);
 
-    alert.lening = (){
+    List<String> listID = _selectedList.map((e) => e.id).toList();
 
-      List<String> listID = _selectedList.map((e) => e.id).toList();
+    alert.lening = (){
 
       final cramming = Cramming(themesID: listID);
 
@@ -226,12 +182,21 @@ class Lenta extends StatelessWidget {
       );
     };
 
+
     alert.rusEng = (){
-      print('------1');
+      final first = TestSelectedFirst(rusWay: true, themesID: listID);
+
+      Navigator.push(_context, MaterialPageRoute(
+            builder: (context) => first),
+      );
     };
 
     alert.engRus = (){
-      print('------2');
+      final first = TestSelectedFirst(rusWay: false, themesID: listID);
+
+      Navigator.push(_context, MaterialPageRoute(
+            builder: (context) => first),
+      );
     };
 
 

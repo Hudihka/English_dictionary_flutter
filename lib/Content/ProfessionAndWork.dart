@@ -1,4 +1,4 @@
-import 'dart:core';
+
 class ProfessionAndWork {
     
     static final Map<String, dynamic> allWord = {"theme" : "Профессии и работа", "allWords" : ProfessionAndWork._words};

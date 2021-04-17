@@ -1,8 +1,6 @@
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
 
-import 'ThemeCubit.dart';
-import 'WordCubit.dart';
+
+import 'package:english_dictionary_flutter/export.dart';
 
 
 class SingltonsCubit{
@@ -12,6 +10,7 @@ class SingltonsCubit{
 
   WordCubit _wordCubit;
   ThemeCubit _contentCubit;
+  TestSelectedCubit _testSelectedCubit;
 
   saveThemeCubit(ThemeCubit cubit){
     _contentCubit = cubit;
@@ -29,6 +28,15 @@ class SingltonsCubit{
   WordCubit get getWodrCubit {
     return _wordCubit;
   }
+
+  saveTestSelectedCubit(TestSelectedCubit cubit){
+    _testSelectedCubit = cubit;
+  }
+
+  TestSelectedCubit get getTestSelectedCubit {
+    return _testSelectedCubit;
+  }
+
 
 
 }
