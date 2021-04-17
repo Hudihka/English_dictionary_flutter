@@ -38,13 +38,17 @@ class HrderTestTable extends StatelessWidget {
   Widget get _content {
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [Container(
           width: double.infinity,
           height: 19,
           child: _getWidgetText(color: Colors.black, text: 'Всего $_countAll')
         ),
         SizedBox(height: 9,),
-        Row(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
           _getWidgetText(color: Colors.green, text: '$_countTrue +'),
           SizedBox(width: 20,),
           _getWidgetText(color: Colors.red, text: '$_countFalse -'),
@@ -58,7 +62,7 @@ class HrderTestTable extends StatelessWidget {
     return Text(
             text, 
             style: TextStyle(color: color, fontSize: 18, fontWeight: FontWeight.w500),
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.center,
             );
   }
 

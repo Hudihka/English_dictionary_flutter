@@ -1,4 +1,4 @@
-import 'package:english_dictionary_flutter/Pages/TestSelectedFirst.dart';
+
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 
@@ -184,6 +184,7 @@ class Lenta extends StatelessWidget {
 
 
     alert.rusEng = (){
+      SingltonOrientation.shared.twoOrientation();
       final first = TestSelectedFirst(rusWay: true, themesID: listID);
 
       Navigator.push(_context, MaterialPageRoute(
@@ -192,6 +193,7 @@ class Lenta extends StatelessWidget {
     };
 
     alert.engRus = (){
+      SingltonOrientation.shared.twoOrientation();
       final first = TestSelectedFirst(rusWay: false, themesID: listID);
 
       Navigator.push(_context, MaterialPageRoute(

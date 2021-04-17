@@ -42,26 +42,24 @@ class TestSelectedFirst extends StatelessWidget {
 
 
   Widget get _allContent {
-    String text = rusWay ? "Rus -> Eng" : "Eng -> Rus";
 
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () { 
+        SingltonOrientation.shared.oneOrientation();
+        Navigator.of(_context).pop();
+       },
+      child: Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
-        title: Text(
-          text,
-          style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500)
-        ),
+        title: HrderTestTable(),
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          HrderTestTable(),
-          _listTV
-        ],
-      )
+      body: _listTV
+    )
     );
   }
 

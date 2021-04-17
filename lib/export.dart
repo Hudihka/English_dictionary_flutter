@@ -61,6 +61,8 @@ export 'package:english_dictionary_flutter/Pages/ThemeList.dart';
 export 'package:english_dictionary_flutter/Views/TestSelectedCell/CellTestWord.dart';
 export 'package:english_dictionary_flutter/Views/TestSelectedCell/HrderTestTable.dart';
 export 'package:english_dictionary_flutter/Views/TestSelectedCell/CellTestWordAnswer.dart';
-
+export 'package:flutter/services.dart' ;
+export 'package:english_dictionary_flutter/Pages/TestSelectedFirst.dart';
+export 'package:english_dictionary_flutter/Support/SingltonOrientation.dart';
 
 
