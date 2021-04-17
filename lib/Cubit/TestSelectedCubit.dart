@@ -110,6 +110,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
     if (value == null){
       final array = _randomMixWord(_words, 10, word);
       _listAll[word] = array;
+      //добавляем
       emit(selectedState.copyWith(newContentTwoList: array));
       return;
     }
@@ -120,7 +121,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   tapedWordAnsver(Word word){
     final newValue = word.id == _selectedWord.id;
-    _listAll[word] = newValue;
+    _listAll[_selectedWord] = newValue;
 
     //добавить вибрацию в зависимости от ответа
     //

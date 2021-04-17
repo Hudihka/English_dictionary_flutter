@@ -67,7 +67,9 @@ class TestSelectedTwo extends StatelessWidget {
     String text = "";
 
     if (_content is List<Word>){
-      text = !rusWay ? _selectedWord.rusValue : _selectedWord.engValue;
+      if (_selectedWord != null){
+        text = !rusWay ? _selectedWord.rusValue : _selectedWord.engValue;
+      }
     }
 
     return AppBar(
@@ -121,23 +123,6 @@ class TestSelectedTwo extends StatelessWidget {
     ),
     );
 
-    // return Center(
-    //   child: Column(
-    //     children: [
-    //       Text(
-    //         rusWay ? _selectedWord.rusValue : _selectedWord.engValue, 
-    //         style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-    //         textAlign: TextAlign.center,
-    //         ),
-    //     SizedBox(height: 20,),
-    //     Text(
-    //         !rusWay ? _selectedWord.rusValue : _selectedWord.engValue,
-    //         style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
-    //         textAlign: TextAlign.center,
-    //         ),
-    //     ],
-    //   )
-    // );
   }
 
 
