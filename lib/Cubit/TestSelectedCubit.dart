@@ -55,6 +55,9 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
   Future<void> fetchContent({@required List<String> themesID}) async {
 
     _themesID = themesID;
+    _selectedWord = null;
+    _listAll = {};
+
 
     await _randomMixWordStart();
 
