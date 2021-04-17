@@ -36,6 +36,10 @@ class TestSelectedTwo extends StatelessWidget {
         _content = state.contentTwoList;
         _selectedWord = state.selectedWord;
 
+        if (_content == null){
+          return ScafoldLoad();
+        }
+
 
         return _allContent;
 

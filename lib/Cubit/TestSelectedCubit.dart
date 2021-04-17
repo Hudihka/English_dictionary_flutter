@@ -45,6 +45,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
   final TestSelectedState selectedState;
 
   List<Word> _words;
+  List<String> _themesID;
 
   Map<Word, dynamic> _listAll = {};
   Word _selectedWord;
@@ -53,32 +54,34 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   Future<void> fetchContent({@required List<String> themesID}) async {
 
-    List<Word> listStart = await cash.getWordsSorted(themesID, null, text: "");
+    _themesID = themesID;
 
-    _words = _randomMixWord(listStart, listStart.length, null);
+    await _randomMixWordStart();
+
     emit(selectedState.copyWith(newWords: _words, newContentTwoList: null));
-
   }
 
-  List<Word> _randomMixWord(List<Word> inArray, int countFinalLeng, Word truhWord){
+  _randomMixWordStart() async {
+    
+    List<Word> listStart = await cash.getWordsSorted(_themesID, null, text: "");
 
+    listStart.shuffle();
+    _words = listStart;
+  }
+
+
+  Future<List<Word>> _randomMixWord({@required Word truhWord}) async {
+    
+    List<Word> inArray = await cash.getWordsSorted(_themesID, null, text: "");
     inArray.shuffle();
 
-    if (truhWord != null){
-      inArray.retainWhere((item) => item.id != truhWord.id);
-    }
+    inArray.retainWhere((item) => item.id != truhWord.id);
     
-    if (countFinalLeng < inArray.length){
-      inArray = inArray.sublist(0, countFinalLeng);
+    inArray = inArray.sublist(0, 10);
 
-      print('-----------------');
-    }
-
-    if (truhWord != null){
-      Random random = new Random();
-      final index = random.nextInt(countFinalLeng);
-      inArray[index] = truhWord;
-    }
+    Random random = new Random();
+    final index = random.nextInt(10);
+    inArray[index] = truhWord;
 
     return inArray;
 
@@ -104,11 +107,11 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
   }
 
 
-  _reloadListAll({@required Word word}){
+  _reloadListAll({@required Word word}) async {
     final value = _listAll[word];
 
     if (value == null){
-      final array = _randomMixWord(_words, 10, word);
+      final array =  await _randomMixWord(truhWord: word);
       _listAll[word] = array;
       //добавляем
       emit(selectedState.copyWith(newContentTwoList: array));
