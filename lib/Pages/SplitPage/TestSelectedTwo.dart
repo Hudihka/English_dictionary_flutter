@@ -17,6 +17,10 @@ class TestSelectedTwo extends StatelessWidget {
       return Colors.white;
     }
 
+    if (_content == null){
+      return "FCFCFC".getColor();
+    }
+
     return _content ? Colors.green[200] : Colors.red[200];
   }
 
@@ -33,9 +37,6 @@ class TestSelectedTwo extends StatelessWidget {
         _selectedWord = state.selectedWord;
         _rusWay = !state.rusWay;
 
-        if (_content == null){
-          return _textCenter;
-        }
 
 
         return _allContent;
@@ -52,6 +53,8 @@ class TestSelectedTwo extends StatelessWidget {
     return WillPopScope(
       onWillPop: () { 
         // SingltonsCubit.shared.getTestSelectedCubit.clearSelectedWord();
+        _content = null;
+        _selectedWord = null;
         Navigator.of(_context).pop();
        },
       child: Scaffold(
@@ -95,7 +98,7 @@ class TestSelectedTwo extends StatelessWidget {
     }
 
     if (_selectedWord == null){
-      return Container();
+      return _textCenter;
     }
 
     return _textCenter;

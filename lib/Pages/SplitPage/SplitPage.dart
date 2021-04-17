@@ -24,7 +24,9 @@ class SplitPage extends StatelessWidget {
       builder: (context, constraints) {
         bool horizontalOrient = Const.hDevice < Const.wDevice;
 
-        Widget child = horizontalOrient ? _TabletHomePage(horizontalOrient: horizontalOrient,) : TestSelectedFirst();
+        Widget child = horizontalOrient ? 
+                      _TabletHomePage(horizontalOrient: horizontalOrient,) : 
+                       TestSelectedFirst(horizontalOrient: horizontalOrient,);
         return child;
       },
     );
@@ -42,7 +44,7 @@ class _TabletHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Container(width: 280, child: TestSelectedFirst()),
+        Container(width: 280, child: TestSelectedFirst(horizontalOrient: horizontalOrient,)),
         Expanded(child: TestSelectedTwo())
       ],
     );

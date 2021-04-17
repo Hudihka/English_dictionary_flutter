@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 class TestSelectedFirst extends StatelessWidget {
 
   bool _rusWay;
+
+  bool horizontalOrient; 
+  TestSelectedFirst({@required this.horizontalOrient});
   // List<String> themesID;
   // TestSelectedFirst({@required this.rusWay, @required this.themesID});
 
@@ -93,8 +96,12 @@ class TestSelectedFirst extends StatelessWidget {
 
                 _contentCubit.tapedWordTest(value);
 
-                Navigator.push(_context, MaterialPageRoute(
-                builder: (context) => TestSelectedTwo()),);
+                if (horizontalOrient){
+                  return;
+                } else {
+                  Navigator.push(_context, MaterialPageRoute(
+                  builder: (context) => TestSelectedTwo()),);
+                }
 
     };
 

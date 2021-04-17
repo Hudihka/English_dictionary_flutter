@@ -14,6 +14,13 @@ class TestSelectedState {
 
   TestSelectedState({this.words, this.contentTwoList, this.selectedWord, this.rusWay});
 
+  clearOll(){
+    words          = null;
+    contentTwoList = null;
+    selectedWord   = null;
+    rusWay         = null;
+  }
+
   TestSelectedState copyWith({List<Word> newWords, 
                               dynamic newContentTwoList,
                               Word newSelectedWord,
@@ -61,6 +68,9 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   Future<void> fetchContent({@required List<String> themesID, @required rusWay}) async {
 
+
+    selectedState.clearOll();
+
     _themesID = themesID;
     _selectedWord = null;
     _listAll = {};
@@ -68,7 +78,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
     await _randomMixWordStart();
 
-    emit(selectedState.copyWith(newWords: _words, newContentTwoList: null, newRusWay: rusWay));
+    emit(selectedState.copyWith(newWords: _words, newContentTwoList: null, newRusWay: rusWay, newSelectedWord: null));
   }
 
   _randomMixWordStart() async {
