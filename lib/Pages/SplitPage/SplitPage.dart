@@ -22,23 +22,24 @@ class SplitPage extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        return _content();
+        Widget child = Const.hDevice < Const.wDevice ? _TabletHomePage() : _MobileHomePage();
+        return child;
       },
     );
   }
 
-  Widget _content(){
+  // Widget _content(){
 
-    Widget child = Const.hDevice < Const.wDevice ? _TabletHomePage() : _MobileHomePage();
+  //   Widget child = Const.hDevice < Const.wDevice ? _TabletHomePage() : _MobileHomePage();
 
-    return WillPopScope(
-      onWillPop: () { 
-        SingltonsCubit.shared.getTestSelectedCubit.clearSelectedWord();
-        Navigator.of(_context).pop();
-       },
-       child: child,
-    );
-  }
+  //   return WillPopScope(
+  //     onWillPop: () { 
+  //       SingltonsCubit.shared.getTestSelectedCubit.clearSelectedWord();
+  //       Navigator.of(_context).pop();
+  //      },
+  //      child: child,
+  //   );
+  // }
 }
 
 class _MobileHomePage extends StatelessWidget {

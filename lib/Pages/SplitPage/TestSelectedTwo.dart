@@ -51,7 +51,7 @@ class TestSelectedTwo extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () { 
-        SingltonsCubit.shared.getTestSelectedCubit.clearSelectedWord();
+        // SingltonsCubit.shared.getTestSelectedCubit.clearSelectedWord();
         Navigator.of(_context).pop();
        },
       child: Scaffold(

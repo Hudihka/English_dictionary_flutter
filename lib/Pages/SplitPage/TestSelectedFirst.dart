@@ -42,7 +42,12 @@ class TestSelectedFirst extends StatelessWidget {
 
   Widget get _allContent {
 
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () { 
+        SingltonOrientation.shared.oneOrientation();
+        Navigator.of(_context).pop();
+       },
+      child: Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -53,6 +58,7 @@ class TestSelectedFirst extends StatelessWidget {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: _listTV
+    )
     );
   }
 
@@ -65,7 +71,7 @@ class TestSelectedFirst extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: Const.fullHeightBody - 79,
+      height: Const.fullHeightBody,
       child:  ListView.builder(
           physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           itemCount: _dataArray.length,
