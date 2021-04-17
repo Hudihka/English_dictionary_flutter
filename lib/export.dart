@@ -65,4 +65,4 @@ export 'package:flutter/services.dart' ;
 export 'package:english_dictionary_flutter/Pages/SplitPage/TestSelectedFirst.dart';
 export 'package:english_dictionary_flutter/Support/SingltonOrientation.dart';
 export 'package:english_dictionary_flutter/Pages/SplitPage/TestSelectedTwo.dart';
-
+export 'package:english_dictionary_flutter/Pages/TestWidget.dart';
