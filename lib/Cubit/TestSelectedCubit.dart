@@ -10,13 +10,21 @@ class TestSelectedState {
   List<Word> words;
   dynamic contentTwoList;
   Word selectedWord;
+  bool rusWay;
 
+  TestSelectedState({this.words, this.contentTwoList, this.selectedWord, this.rusWay});
 
-  TestSelectedState({this.words, this.contentTwoList, this.selectedWord});
+  clearOll(){
+    words          = null;
+    contentTwoList = null;
+    selectedWord   = null;
+    rusWay         = null;
+  }
 
   TestSelectedState copyWith({List<Word> newWords, 
                               dynamic newContentTwoList,
-                              Word newSelectedWord}){
+                              Word newSelectedWord,
+                              bool newRusWay}){
 
     if (newWords != null){
       this.words = newWords;
@@ -29,10 +37,15 @@ class TestSelectedState {
     if (newSelectedWord != null){
       this.selectedWord = newSelectedWord;
     }
+
+    if (newRusWay != null){
+      this.rusWay = newRusWay;
+    }
     
     return TestSelectedState(words: newWords ?? this.words ,
                             contentTwoList: newContentTwoList ?? this.contentTwoList,
-                            selectedWord: selectedWord);
+                            selectedWord: selectedWord,
+                            rusWay: this.rusWay ?? newRusWay);
 
   }
   
@@ -45,6 +58,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
   final TestSelectedState selectedState;
 
   List<Word> _words;
+
   List<String> _themesID;
 
   Map<Word, dynamic> _listAll = {};
@@ -52,7 +66,10 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
   TestSelectedCubit(this.selectedState) : super(TestSelectedState());
 
-  Future<void> fetchContent({@required List<String> themesID}) async {
+  Future<void> fetchContent({@required List<String> themesID, @required rusWay}) async {
+
+
+    selectedState.clearOll();
 
     _themesID = themesID;
     _selectedWord = null;
@@ -61,7 +78,7 @@ class TestSelectedCubit extends Cubit<TestSelectedState>{
 
     await _randomMixWordStart();
 
-    emit(selectedState.copyWith(newWords: _words, newContentTwoList: null));
+    emit(selectedState.copyWith(newWords: _words, newContentTwoList: null, newRusWay: rusWay, newSelectedWord: null));
   }
 
   _randomMixWordStart() async {
