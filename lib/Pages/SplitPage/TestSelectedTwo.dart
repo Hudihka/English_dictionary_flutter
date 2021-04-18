@@ -8,6 +8,7 @@ class TestSelectedTwo extends StatelessWidget {
   bool _rusWay;
 
   BuildContext _context;
+  Function tapedBack;
 
   dynamic _content;
   Word _selectedWord;
@@ -52,10 +53,13 @@ class TestSelectedTwo extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () { 
-        // SingltonsCubit.shared.getTestSelectedCubit.clearSelectedWord();
         _content = null;
         _selectedWord = null;
-        Navigator.of(_context).pop();
+
+        if (tapedBack != null){
+          tapedBack();
+        }
+
        },
       child: Scaffold(
       appBar: _appBar,

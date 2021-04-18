@@ -10,8 +10,8 @@ class TestSelectedFirst extends StatelessWidget {
 
   bool horizontalOrient; 
   TestSelectedFirst({@required this.horizontalOrient});
-  // List<String> themesID;
-  // TestSelectedFirst({@required this.rusWay, @required this.themesID});
+  
+  PageController controller = PageController();
 
   BuildContext _context;
   TestSelectedCubit get _contentCubit{
@@ -45,6 +45,24 @@ class TestSelectedFirst extends StatelessWidget {
 
   Widget get _allContent {
 
+    if (horizontalOrient){
+      return _firstScafold();
+    }
+
+    return PageView(
+      controller: controller,
+      physics: NeverScrollableScrollPhysics(),
+      children: <Widget>[
+        _firstScafold(),
+        _twoScafold(),
+      ],
+  );
+
+
+  }
+
+  Widget _firstScafold(){
+
     return WillPopScope(
       onWillPop: () { 
         SingltonOrientation.shared.oneOrientation();
@@ -63,14 +81,21 @@ class TestSelectedFirst extends StatelessWidget {
       body: _listTV
     )
     );
+
+  }
+
+  Widget _twoScafold(){
+    final widget = TestSelectedTwo();
+    widget.tapedBack = (){
+      _animateIndex(0);
+    };
+
+    return widget;
   }
 
 
 
   Widget get _listTV {
-
-
-// TestSelectedTwo
 
     return Container(
       width: double.infinity,
@@ -96,16 +121,19 @@ class TestSelectedFirst extends StatelessWidget {
 
                 _contentCubit.tapedWordTest(value);
 
-                if (horizontalOrient){
-                  return;
-                } else {
-                  Navigator.push(_context, MaterialPageRoute(
-                  builder: (context) => TestSelectedTwo()),);
+                if (horizontalOrient == false){
+                  _animateIndex(1);
                 }
 
     };
 
     return cell;
+  }
+
+  _animateIndex(int index){
+    controller.animateToPage(index, 
+    curve: Curves.decelerate, 
+    duration: Duration(milliseconds: 350));
   }
 
 

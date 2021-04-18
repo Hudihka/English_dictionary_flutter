@@ -66,3 +66,4 @@ export 'package:english_dictionary_flutter/Pages/SplitPage/TestSelectedFirst.dar
 export 'package:english_dictionary_flutter/Support/SingltonOrientation.dart';
 export 'package:english_dictionary_flutter/Pages/SplitPage/TestSelectedTwo.dart';
 export 'package:english_dictionary_flutter/Pages/TestWidget.dart';
+export 'package:english_dictionary_flutter/Pages/SplitPage/SplitPage.dart';
