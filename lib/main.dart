@@ -1,5 +1,4 @@
 
-import 'package:english_dictionary_flutter/Support/SingltonOrientation.dart';
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 

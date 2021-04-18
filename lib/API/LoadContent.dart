@@ -1,10 +1,11 @@
 
-import 'package:english_dictionary_flutter/Content/ALLCONTENT.dart';
-import 'package:english_dictionary_flutter/Data/DBProvider.dart';
-import 'package:english_dictionary_flutter/Models/ThemeWords.dart';
+import 'package:english_dictionary_flutter/export.dart';
+import 'dart:io' as io;
 
 class LoadContent {
   Future loadContent(List<String> ids) async {
+
+    // _localPath;
 
     final List<Map<String, dynamic>> allContent = AllContent.allContent;
 
@@ -18,5 +19,12 @@ class LoadContent {
 
 
   }
+
+
+Future<String> get _localPath async {
+  final directory = await getApplicationDocumentsDirectory();
+
+  return directory.path;
+}
 
 }
