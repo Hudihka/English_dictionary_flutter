@@ -19,7 +19,7 @@ class HrderTestTable extends StatelessWidget {
   }
 
   int get _countAll {
-    return _testCubit.selectedState.words.length;
+    return _testCubit.selectedState.words?.length ?? 0;
   }
 
 
