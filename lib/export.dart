@@ -67,3 +67,8 @@ export 'package:english_dictionary_flutter/Support/SingltonOrientation.dart';
 export 'package:english_dictionary_flutter/Pages/SplitPage/TestSelectedTwo.dart';
 export 'package:english_dictionary_flutter/Pages/TestWidget.dart';
 export 'package:english_dictionary_flutter/Pages/SplitPage/SplitPage.dart';
+export 'package:english_dictionary_flutter/Support/SingltonOrientation.dart';
+export 'package:english_dictionary_flutter/Content/ALLCONTENT.dart';
+export 'package:english_dictionary_flutter/Data/DBProvider.dart';
+export 'package:english_dictionary_flutter/Models/ThemeWords.dart';
+export 'package:path_provider/path_provider.dart';
