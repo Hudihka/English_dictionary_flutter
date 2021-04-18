@@ -2,7 +2,8 @@
 import 'package:english_dictionary_flutter/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+// https://stackoverflow.com/questions/48043908/pageview-disable-the-default-scrolling-and-replace-it-with-tap-event
+//https://medium.com/flutter-community/a-deep-dive-into-pageview-in-flutter-with-custom-transitions-581d9ea6dded
 class TestWidget extends StatefulWidget {
 
   @override
@@ -11,23 +12,32 @@ class TestWidget extends StatefulWidget {
 
 class _TestWidgetState extends State<TestWidget> {
   bool showTwo = false;
+  PageController controller = PageController();
+  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: _listWidgets()
-    );
+    _context = context;
 
-
+    return PageView(
+      controller: controller,
+      physics: NeverScrollableScrollPhysics(),
+      children: <Widget>[
+        scafold1(),
+        scafold2(),
+      ],
+  );
   }
 
-  List<Widget> _listWidgets(){
-    if (showTwo){
-      return [scafold1(), scafold2()];
-    } else {
-      return [scafold1()];
-    }
-  }
+
+
+  // List<Widget> _listWidgets(){
+  //   if (showTwo){
+  //     return [scafold1(), scafold2()];
+  //   } else {
+  //     return [scafold1()];
+  //   }
+  // }
 
 
   Widget scafold1(){
@@ -36,8 +46,10 @@ class _TestWidgetState extends State<TestWidget> {
       backgroundColor: Colors.red,
       resizeToAvoidBottomInset: false,
       body: RaisedButton(onPressed: (){
-        showTwo = true;
-        setState(() {});
+        // controller.jumpToPage(1);
+        controller.animateToPage(1, curve: Curves.decelerate, duration: Duration(milliseconds: 300));
+
+        // setState(() {});
       })
     );
   }
@@ -48,11 +60,13 @@ class _TestWidgetState extends State<TestWidget> {
       backgroundColor: Colors.green,
       resizeToAvoidBottomInset: false,
       body: RaisedButton(onPressed: (){
-        showTwo = false;
-        setState(() {});
+        // controller.jumpToPage(0);
+        controller.animateToPage(0, curve: Curves.decelerate, duration: Duration(milliseconds: 300));
       })
     );
   }
+
+
 
 }
 
